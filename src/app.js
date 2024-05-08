@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 import Fastify from "fastify";
 import process from "process";
-import consentRoute from "./routes/consent-route.js";
+import processingRoute from "./routes/processing-route.js";
 import shouldForgetRoute from "./routes/should-forget-route.js";
 
 dotenv.config();
 const fastify = Fastify({ logger: true });
 
-fastify.register(consentRoute, { prefix: "/api/v1" });
+fastify.register(processingRoute, { prefix: "/api/v1" });
 fastify.register(shouldForgetRoute, { prefix: "/api/v1" });
 
 const start = () => {
