@@ -1,7 +1,7 @@
 import authTokenModel from "../models/auth-token-model.js";
 import consentApiModel from "../models/consent-api-model.js";
 
-const salesforceAuthController = async (_request, reply) => {
+const salesforceConsentApiController = async (_request, reply) => {
   try {
     const token = await authTokenModel();
     const response = await consentApiModel(token);
@@ -24,4 +24,4 @@ const salesforceAuthController = async (_request, reply) => {
   }
 };
 
-export default salesforceAuthController;
+export default salesforceConsentApiController;
