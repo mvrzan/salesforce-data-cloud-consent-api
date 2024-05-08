@@ -1,10 +1,10 @@
-import salesforceAuthController from "../controllers/salesforce-auth-controller.js";
+import salesforceConsentApiController from "../controllers/salesforce-consent-api-controller.js";
 
 const consentRoute = (fastify, _options, done) => {
   fastify.route({
     method: "GET",
     url: "/consent",
-    handler: salesforceAuthController,
+    handler: salesforceConsentApiController,
   });
 
   done();
