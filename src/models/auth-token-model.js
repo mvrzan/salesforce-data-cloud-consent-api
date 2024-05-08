@@ -28,7 +28,13 @@ const authTokenModel = async () => {
 
     return response.data.access_token;
   } catch (error) {
-    console.error("There was a problem with calling the Consent API:", error);
+    console.error("There was an error when getting the auth token:", error);
+
+    return {
+      message: "There was an error when getting the auth token.",
+      data: error,
+      status: 500,
+    };
   }
 };
 
