@@ -20,7 +20,7 @@ const authTokenModel = async () => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    data: data,
+    data,
   };
 
   try {
