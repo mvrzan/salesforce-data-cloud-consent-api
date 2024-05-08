@@ -3,10 +3,11 @@ import process from "process";
 
 const processingModel = async (token) => {
   const userId = "003am000001BWl2AAG";
+  const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp`;
 
   const config = {
     method: "GET",
-    url: `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp`,
+    url,
     headers: {
       Authorization: `Bearer ${token}`,
     },
