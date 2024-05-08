@@ -1,10 +1,10 @@
-import salesforceConsentApiController from "../controllers/salesforce-consent-api-controller.js";
+import shouldForgetConsentApiController from "../controllers/should-forget-consent-api-controller.js";
 
 const shouldForget = (fastify, _options, done) => {
   fastify.route({
     method: "GET",
     url: "/shouldForget",
-    handler: salesforceConsentApiController,
+    handler: shouldForgetConsentApiController,
   });
 
   done();
