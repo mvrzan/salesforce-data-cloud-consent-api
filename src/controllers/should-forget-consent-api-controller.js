@@ -1,5 +1,5 @@
 import authTokenModel from "../models/auth-token-model.js";
-import shouldForgetModel from "../models/processing-model.js";
+import shouldForgetModel from "../models/should-forget-model.js";
 
 const shouldForgetConsentApiController = async (_request, reply) => {
   try {
