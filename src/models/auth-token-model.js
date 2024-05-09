@@ -28,8 +28,6 @@ const authTokenModel = async () => {
 
     return response.data.access_token;
   } catch (error) {
-    console.error("There was an error when getting the auth token:", error);
-
     return {
       message: "There was an error when getting the auth token.",
       data: error,
