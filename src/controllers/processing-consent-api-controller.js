@@ -4,6 +4,11 @@ import processingModel from "../models/processing-model.js";
 const processingConsentApiController = async (_request, reply) => {
   try {
     const token = await authTokenModel();
+
+    if (token.status === 500) {
+      throw new Error("Something went wrong with the auth token request.");
+    }
+
     const response = await processingModel(token);
 
     reply.statusCode = 200;
@@ -14,14 +19,11 @@ const processingConsentApiController = async (_request, reply) => {
       data: response.data,
     };
   } catch (error) {
-    console.error("There was an error with the request:", error);
-    reply.status(500).send(error);
-
-    return {
-      message: "There was an error with the request.",
-      data: error,
-      status: 500,
-    };
+    console.log("There was an error with the request:", error);
+    return reply.status(500).send({
+      message: error.message,
+      data: error.stack,
+    });
   }
 };
 
