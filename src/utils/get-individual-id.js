@@ -21,9 +21,22 @@ const getIndividualId = async (token, email = "wmartin@example.com") => {
   try {
     const response = await axios.request(config);
 
-    console.log("response from Data Cloud Query API:", response);
+    if (response.data.data.length === 0) {
+      return {
+        message: `No individual ID found for email: ${email}`,
+        data: response.data.data,
+        status: 404,
+        individualId: undefined,
+        email,
+      };
+    }
 
-    return response.data.data[0][0];
+    return {
+      message: `Found individual ID found for email: ${email}`,
+      data: response.data.data,
+      status: 404,
+      individualId: response.data.data[0][0],
+    };
   } catch (error) {
     console.error(error);
     return {
