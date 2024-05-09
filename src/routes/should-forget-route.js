@@ -1,10 +1,17 @@
-import shouldForgetConsentApiController from "../controllers/should-forget-consent-api-controller.js";
+import fetchShouldForget from "../controllers/fetch-should-forget.js";
+import updateShouldForget from "../controllers/update-should-forget.js";
 
 const shouldForget = (fastify, _options, done) => {
   fastify.route({
     method: "GET",
     url: "/shouldForget",
-    handler: shouldForgetConsentApiController,
+    handler: fetchShouldForget,
+  });
+
+  fastify.route({
+    method: "PATCH",
+    url: "/shouldForget",
+    handler: updateShouldForget,
   });
 
   done();
