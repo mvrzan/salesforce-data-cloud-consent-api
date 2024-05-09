@@ -10,19 +10,31 @@ const fetchShouldForget = async (request, reply) => {
       throw new Error("Something went wrong with the auth token request.");
     }
 
-    const individualId = await getIndividualId(token);
+    const queryResult = await getIndividualId(token);
 
-    if (individualId.status === 500) {
-      throw new Error("Something went wrong with the individual ID request.");
+    if (queryResult.status === 404) {
+      return reply.status(404).send({
+        message:
+          "The individual ID was not found. Please check the email address.",
+        data: queryResult.data,
+        email: queryResult.email,
+      });
     }
 
-    if (!individualId) {
+    if (queryResult.status === 500) {
+      reply.status(500).send({
+        message: queryResult.message,
+        data: queryResult.data,
+      });
+    }
+
+    if (!queryResult.individualId) {
       throw new Error("The individual ID was not found.");
     }
 
     const response = await getShouldForgetStatus(
       token,
-      individualId,
+      queryResult,
       request.method
     );
 
