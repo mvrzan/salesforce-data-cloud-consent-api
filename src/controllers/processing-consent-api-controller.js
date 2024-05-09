@@ -11,13 +11,11 @@ const processingConsentApiController = async (_request, reply) => {
 
     const response = await processingModel(token);
 
-    reply.statusCode = 200;
-
-    return {
+    return reply.status(200).send({
       message:
         "The request to the Consent API and processing action was successful.",
       data: response.data,
-    };
+    });
   } catch (error) {
     console.log("There was an error with the request:", error);
     return reply.status(500).send({
