@@ -2,7 +2,7 @@ import qs from "qs";
 import axios from "axios";
 import process from "process";
 
-const authTokenModel = async () => {
+const authToken = async () => {
   const data = qs.stringify({
     grant_type: "password",
     username: process.env.SERVICE_USER_USERNAME,
@@ -36,4 +36,4 @@ const authTokenModel = async () => {
   }
 };
 
-export default authTokenModel;
+export default authToken;
