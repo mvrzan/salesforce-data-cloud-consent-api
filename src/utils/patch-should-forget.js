@@ -2,7 +2,6 @@ import axios from "axios";
 import process from "process";
 
 const patchShouldForget = async (token, userId) => {
-  //   const userId = "003am000001BWl2AAG";
   const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/shouldforget?ids=${userId}&mode=cdp&status=optin`;
 
   const config = {
