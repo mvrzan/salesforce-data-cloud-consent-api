@@ -26,7 +26,7 @@ const getIndividualId = async (token, email) => {
   try {
     const response = await axios.request(config);
 
-    if (response.data.data.length === 0) {
+    if (!response.data.data[0][0]) {
       return {
         message: `No individual ID found for email: ${email}`,
         data: response.data.data,
