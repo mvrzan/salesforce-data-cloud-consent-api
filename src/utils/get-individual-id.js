@@ -5,10 +5,10 @@ const getIndividualId = async (token, email) => {
   const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/ssot/queryv2`;
   const query = JSON.stringify({
     sql: `SELECT Salesforce_Id__c 
-    FROM UnifiedssotIndividualPat__dlm 
+    FROM ${process.env.UNIFIED_INDIVIDUAL_DMO_API_NAME}__dlm 
     WHERE ssot__Id__c IN (
         SELECT ssot__Id__c 
-        FROM UnifiedssotContactPointEmailPat__dlm 
+        FROM ${process.env.UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME}__dlm 
         WHERE ssot__EmailAddress__c = '${email}')`,
   });
 
