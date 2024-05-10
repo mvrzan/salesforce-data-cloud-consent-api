@@ -15,10 +15,6 @@ const patchShouldForget = async (token, userId) => {
 
   try {
     const response = await axios.request(config);
-    console.log(
-      "response from CONSENT API and shouldForget PATCH action:",
-      response.data
-    );
 
     return response;
   } catch (error) {
