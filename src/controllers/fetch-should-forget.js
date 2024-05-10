@@ -35,7 +35,7 @@ const fetchShouldForget = async (request, reply) => {
 
     const response = await getShouldForgetStatus(
       token,
-      queryResult,
+      queryResult.individualId,
       request.method
     );
 
