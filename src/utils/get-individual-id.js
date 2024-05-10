@@ -1,9 +1,9 @@
 import axios from "axios";
 import process from "process";
 
-const getIndividualId = async (token, email = "wmartin@example.com") => {
+const getIndividualId = async (token, email) => {
   const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/ssot/queryv2`;
-  const data = JSON.stringify({
+  const query = JSON.stringify({
     sql: `select ssot__PartyId__c from ssot__ContactPointEmail__dlm WHERE ssot__EmailAddress__c = '${email}'`,
   });
 
@@ -15,7 +15,7 @@ const getIndividualId = async (token, email = "wmartin@example.com") => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    data: data,
+    data: query,
   };
 
   try {
@@ -34,7 +34,7 @@ const getIndividualId = async (token, email = "wmartin@example.com") => {
     return {
       message: `Found individual ID found for email: ${email}`,
       data: response.data.data,
-      status: 404,
+      status: 200,
       individualId: response.data.data[0][0],
     };
   } catch (error) {
