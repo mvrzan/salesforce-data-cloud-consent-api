@@ -10,7 +10,7 @@ const shouldForget = (fastify, _options, done) => {
 
   fastify.route({
     method: "PATCH",
-    url: "/shouldForget:id",
+    url: "/shouldForget/:id",
     handler: updateShouldForget,
   });
 
