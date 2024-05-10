@@ -4,7 +4,12 @@ import process from "process";
 const getIndividualId = async (token, email) => {
   const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/ssot/queryv2`;
   const query = JSON.stringify({
-    sql: `select ssot__PartyId__c from ssot__ContactPointEmail__dlm WHERE ssot__EmailAddress__c = '${email}'`,
+    sql: `SELECT Salesforce_Id__c 
+    FROM UnifiedssotIndividualPat__dlm 
+    WHERE ssot__Id__c IN (
+        SELECT ssot__Id__c 
+        FROM UnifiedssotContactPointEmailPat__dlm 
+        WHERE ssot__EmailAddress__c = '${email}')`,
   });
 
   let config = {
