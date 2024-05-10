@@ -1,4 +1,5 @@
 import authToken from "../utils/auth-token.js";
+import getIndividualId from "../utils/get-individual-id.js";
 import getProcessingStatus from "../utils/get-processing-status.js";
 
 const fetchProcessing = async (request, reply) => {
@@ -10,7 +11,29 @@ const fetchProcessing = async (request, reply) => {
       throw new Error("Something went wrong with the auth token request.");
     }
 
-    const response = await getProcessingStatus(token, email);
+    const queryResult = await getIndividualId(token, email);
+
+    if (queryResult.status === 404) {
+      return reply.status(404).send({
+        message:
+          "The individual ID was not found. Please check the email address.",
+        data: queryResult.data,
+        email: queryResult.email,
+      });
+    }
+
+    if (queryResult.status === 500) {
+      reply.status(500).send({
+        message: queryResult.message,
+        data: queryResult.data,
+      });
+    }
+
+    if (!queryResult.individualId) {
+      throw new Error("The individual ID was not found.");
+    }
+
+    const response = await getProcessingStatus(token, queryResult.individualId);
 
     return reply.status(200).send({
       message:
