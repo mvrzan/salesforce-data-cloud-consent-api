@@ -35,13 +35,12 @@ const fetchShouldForget = async (request, reply) => {
 
     const response = await getShouldForgetStatus(
       token,
-      queryResult.individualId,
-      request.method
+      queryResult.individualId
     );
 
     return reply.status(200).send({
       message:
-        "The request to the Consent API and processing action was successful.",
+        "The fetch request to the Consent API and shouldforget action was successful.",
       data: response.data,
     });
   } catch (error) {
