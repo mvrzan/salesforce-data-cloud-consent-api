@@ -4,7 +4,7 @@ import process from "process";
 const getShouldForgetStatus = async (token, userId) => {
   //   const userId = "003am000001BWl2AAG";
   const getUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/shouldforget?ids=${userId}&mode=cdp`;
-  const patchUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/shouldforget?ids=${userId}&mode=cdp&status=optin`;
+  const patchUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/shouldforget?ids=${userId}&mode=cdp&status=optout`;
 
   const getConfig = {
     method: "GET",
