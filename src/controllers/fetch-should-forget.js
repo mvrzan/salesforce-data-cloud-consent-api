@@ -4,13 +4,14 @@ import getIndividualId from "../utils/get-individual-id.js";
 
 const fetchShouldForget = async (request, reply) => {
   try {
+    const email = request.query.id;
     const token = await authToken();
 
     if (token.status === 500) {
       throw new Error("Something went wrong with the auth token request.");
     }
 
-    const queryResult = await getIndividualId(token);
+    const queryResult = await getIndividualId(token, email);
 
     if (queryResult.status === 404) {
       return reply.status(404).send({
