@@ -1,15 +1,16 @@
 import authToken from "../utils/auth-token.js";
 import getProcessingStatus from "../utils/get-processing-status.js";
 
-const fetchProcessing = async (_request, reply) => {
+const fetchProcessing = async (request, reply) => {
   try {
+    const email = request.query.id;
     const token = await authToken();
 
     if (token.status === 500) {
       throw new Error("Something went wrong with the auth token request.");
     }
 
-    const response = await getProcessingStatus(token);
+    const response = await getProcessingStatus(token, email);
 
     return reply.status(200).send({
       message:
