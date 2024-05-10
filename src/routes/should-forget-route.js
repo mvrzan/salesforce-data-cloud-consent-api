@@ -4,7 +4,7 @@ import updateShouldForget from "../controllers/update-should-forget.js";
 const shouldForget = (fastify, _options, done) => {
   fastify.route({
     method: "GET",
-    url: "/shouldForget",
+    url: "/shouldForget/:id",
     handler: fetchShouldForget,
   });
 
