@@ -2,21 +2,37 @@ import authToken from "../utils/auth-token.js";
 import getIndividualId from "../utils/get-individual-id.js";
 import patchShouldForget from "../utils/patch-should-forget.js";
 
-const updateShouldForget = async (_request, reply) => {
+const updateShouldForget = async (request, reply) => {
   try {
+    const email = request.query.id;
     const token = await authToken();
 
     if (token.status === 500) {
       throw new Error("Something went wrong with the auth token request.");
     }
 
-    const individualId = await getIndividualId(token);
+    const queryResult = await getIndividualId(token, email);
 
-    if (!individualId) {
-      throw new Error("The individual ID was not found.");
+    if (queryResult.status === 404) {
+      return reply.status(404).send({
+        message:
+          "The individual ID was not found. Please check the email address.",
+        data: queryResult.data,
+        email: queryResult.email,
+      });
     }
 
-    const response = await patchShouldForget(token, individualId);
+    if (queryResult.status === 500) {
+      reply.status(500).send({
+        message: queryResult.message,
+        data: queryResult.data,
+      });
+    }
+
+    if (!queryResult.individualId) {
+      throw new Error("The individual ID was not found.");
+    }
+    const response = await patchShouldForget(token, queryResult.individualId);
 
     return reply.status(200).send({
       message:
