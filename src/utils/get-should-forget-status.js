@@ -34,6 +34,8 @@ const getShouldForgetStatus = async (token, userId) => {
     ) {
       const patchResponse = await axios.request(patchConfig);
       console.log("patchResponse:", patchResponse.data);
+
+      return patchResponse;
     }
 
     return response;
