@@ -3,7 +3,7 @@ import process from "process";
 
 const getProcessingStatus = async (token, userId) => {
   const getUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp`;
-  const patchUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp&status=optout`;
+  const patchUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp&status=optin`;
 
   const getConfig = {
     method: "GET",
