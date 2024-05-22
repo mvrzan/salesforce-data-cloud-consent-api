@@ -89,6 +89,7 @@ const ApiCredentials = () => {
     setShowUnifiedIndividualDmoApi(false);
     setUnifiedContactPointEmailDmo("");
     setShowUnifiedContactPointEmailDmo(false);
+    setShowAllValues(false);
   };
 
   const handleSubmit = (e) => {
