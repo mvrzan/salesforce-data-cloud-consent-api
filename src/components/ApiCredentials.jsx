@@ -1,33 +1,50 @@
-import {
-  Input,
-  InputGroup,
-  InputRightElement,
-  Button,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Divider,
-} from "@chakra-ui/react";
 import { useState } from "react";
+import {
+  Flex,
+  Input,
+  Spacer,
+  Button,
+  Divider,
+  InputGroup,
+  FormLabel,
+  FormControl,
+  FormHelperText,
+  FormErrorMessage,
+  InputRightElement,
+} from "@chakra-ui/react";
 
 const ApiCredentials = () => {
-  const [serviceUserEmail, setServiceUserEmail] = useState(false);
-  const [serviceUserPassword, setServiceUserPassword] = useState(false);
-  const [clientId, setClientId] = useState(false);
-  const [clientSecret, setClientSecret] = useState(false);
-  const [serviceUserSecurityToken, setServiceUserSecurityToken] =
+  const [serviceUserEmail, setServiceUserEmail] = useState("");
+  const [showServiceUserEmail, setShowServiceUserEmail] = useState(false);
+  const [serviceUserPassword, setServiceUserPassword] = useState("");
+  const [showServiceUserPassword, setShowServiceUserPassword] = useState(false);
+  const [clientId, setClientId] = useState("");
+  const [showClientId, setShowClientId] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
+  const [showClientSecret, setShowClientSecret] = useState(false);
+  const [serviceUserSecurityToken, setServiceUserSecurityToken] = useState("");
+  const [showServiceUserSecurityToken, setShowServiceUserSecurityToken] =
     useState(false);
-  const [salesforceInstanceUrl, setSalesforceInstanceUrl] = useState(false);
-  const [salesforceApiVersion, setSalesforceApiVersion] = useState(false);
-  const [unifiedIndividualDmoApi, setUnifiedIndividualDmoApi] = useState(false);
+  const [salesforceInstanceUrl, setSalesforceInstanceUrl] = useState("");
+  const [showSalesforceInstanceUrl, setShowSalesforceInstanceUrl] =
+    useState(false);
+  const [salesforceApiVersion, setSalesforceApiVersion] = useState("");
+  const [showSalesforceApiVersion, setShowSalesforceApiVersion] =
+    useState(false);
+  const [unifiedIndividualDmoApi, setUnifiedIndividualDmoApi] = useState("");
+  const [showUnifiedIndividualDmoApi, setShowUnifiedIndividualDmoApi] =
+    useState(false);
   const [unifiedContactPointEmailDmo, setUnifiedContactPointEmailDmo] =
+    useState("");
+  const [showUnifiedContactPointEmailDmo, setShowUnifiedContactPointEmailDmo] =
     useState(false);
+  const [showAllValues, setShowAllValues] = useState(false);
 
-  const handleServiceUserEmail = () => setServiceUserEmail(!serviceUserEmail);
+  const handleServiceUserEmail = () =>
+    setShowServiceUserEmail(!showServiceUserEmail);
   const handleServiceUserPassword = () =>
-    setServiceUserPassword(!serviceUserPassword);
-  const handleClientId = () => setClientId(!clientId);
+    setShowServiceUserPassword(!showServiceUserPassword);
+  const handleClientId = () => setShowClientId(!showClientId);
   const handleClientSecret = () => setClientSecret(!clientSecret);
   const handleServiceUserSecurityToken = () =>
     setServiceUserSecurityToken(!serviceUserSecurityToken);
@@ -40,21 +57,62 @@ const ApiCredentials = () => {
   const handleUnifiedContactPointEmailDmo = () =>
     setUnifiedContactPointEmailDmo(!unifiedContactPointEmailDmo);
 
+  const handleAllValues = (showAll) => {
+    setShowServiceUserEmail(showAll);
+    setShowServiceUserPassword(showAll);
+    setShowClientId(showAll);
+    setShowClientSecret(showAll);
+    setShowServiceUserSecurityToken(showAll);
+    setShowSalesforceInstanceUrl(showAll);
+    setShowSalesforceApiVersion(showAll);
+    setShowUnifiedIndividualDmoApi(showAll);
+    setShowUnifiedContactPointEmailDmo(showAll);
+    setShowAllValues(!showAllValues);
+  };
+
+  const handleCleanAllValues = () => {
+    setServiceUserEmail("");
+    setShowServiceUserEmail(false);
+    setServiceUserPassword("");
+    setShowServiceUserPassword(false);
+    setClientId("");
+    setShowClientId(false);
+    setClientSecret("");
+    setShowClientSecret(false);
+    setServiceUserSecurityToken("");
+    setShowServiceUserSecurityToken(false);
+    setSalesforceInstanceUrl("");
+    setShowSalesforceInstanceUrl(false);
+    setSalesforceApiVersion("");
+    setShowSalesforceApiVersion(false);
+    setUnifiedIndividualDmoApi("");
+    setShowUnifiedIndividualDmoApi(false);
+    setUnifiedContactPointEmailDmo("");
+    setShowUnifiedContactPointEmailDmo(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submit");
+  };
+
   return (
     <FormControl>
       <FormLabel htmlFor="serviceUserEmail" marginTop="20px">
-        Service user username
+        Service username
       </FormLabel>
       <InputGroup size="md">
         <Input
           id="serviceUserEmail"
           pr="4.5rem"
-          type={serviceUserEmail ? "text" : "password"}
+          type={showServiceUserEmail ? "email" : "password"}
           placeholder="jdoe@example.com"
+          value={serviceUserEmail}
+          onChange={(e) => setServiceUserEmail(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleServiceUserEmail}>
-            {serviceUserEmail ? "Hide" : "Show"}
+            {showServiceUserEmail ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -68,12 +126,14 @@ const ApiCredentials = () => {
         <Input
           id="serviceUserPassword"
           pr="4.5rem"
-          type={serviceUserPassword ? "text" : "password"}
+          type={showServiceUserPassword ? "text" : "password"}
           placeholder="password"
+          value={serviceUserPassword}
+          onChange={(e) => setServiceUserPassword(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleServiceUserPassword}>
-            {serviceUserPassword ? "Hide" : "Show"}
+            {showServiceUserPassword ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -88,12 +148,14 @@ const ApiCredentials = () => {
         <Input
           id="clientId"
           pr="4.5rem"
-          type={clientId ? "text" : "password"}
+          type={showClientId ? "text" : "password"}
           placeholder="client ID"
+          value={clientId}
+          onChange={(e) => setClientId(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleClientId}>
-            {clientId ? "Hide" : "Show"}
+            {showClientId ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -107,12 +169,14 @@ const ApiCredentials = () => {
         <Input
           id="clientSecret"
           pr="4.5rem"
-          type={clientSecret ? "text" : "password"}
+          type={showClientSecret ? "text" : "password"}
           placeholder="Client secret"
+          value={clientSecret}
+          onChange={(e) => setClientSecret(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleClientSecret}>
-            {clientSecret ? "Hide" : "Show"}
+            {showClientSecret ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -128,8 +192,10 @@ const ApiCredentials = () => {
         <Input
           id="serviceUserSecurityToken"
           pr="4.5rem"
-          type={serviceUserSecurityToken ? "text" : "password"}
+          type={showServiceUserSecurityToken ? "text" : "password"}
           placeholder="Security token"
+          value={serviceUserSecurityToken}
+          onChange={(e) => setServiceUserSecurityToken(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button
@@ -137,7 +203,7 @@ const ApiCredentials = () => {
             size="sm"
             onClick={handleServiceUserSecurityToken}
           >
-            {serviceUserSecurityToken ? "Hide" : "Show"}
+            {showServiceUserSecurityToken ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -154,12 +220,14 @@ const ApiCredentials = () => {
         <Input
           id="salesforceInstanceUrl"
           pr="4.5rem"
-          type={salesforceInstanceUrl ? "text" : "password"}
+          type={showSalesforceInstanceUrl ? "text" : "password"}
           placeholder="https://my-test-instance.my.salesforce.com"
+          value={salesforceInstanceUrl}
+          onChange={(e) => setSalesforceInstanceUrl(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleSalesforceInstanceUrl}>
-            {salesforceInstanceUrl ? "Hide" : "Show"}
+            {showSalesforceInstanceUrl ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -175,12 +243,14 @@ const ApiCredentials = () => {
         <Input
           id="salesforceApiVersion"
           pr="4.5rem"
-          type={salesforceApiVersion ? "text" : "password"}
+          type={showSalesforceApiVersion ? "text" : "password"}
           placeholder="v60.0"
+          value={salesforceApiVersion}
+          onChange={(e) => setSalesforceApiVersion(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleSalesforceApiVersion}>
-            {salesforceApiVersion ? "Hide" : "Show"}
+            {showSalesforceApiVersion ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -196,12 +266,14 @@ const ApiCredentials = () => {
         <Input
           id="unifiedIndividualDmoApi"
           pr="4.5rem"
-          type={salesforceApiVersion ? "text" : "password"}
+          type={showUnifiedIndividualDmoApi ? "text" : "password"}
           placeholder="UnifiedssotIndividualPat"
+          value={unifiedIndividualDmoApi}
+          onChange={(e) => setUnifiedIndividualDmoApi(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleUnifiedIndividualDmoApi}>
-            {unifiedIndividualDmoApi ? "Hide" : "Show"}
+            {showUnifiedIndividualDmoApi ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -218,8 +290,10 @@ const ApiCredentials = () => {
         <Input
           id="unifiedContactPointEmailDmo"
           pr="4.5rem"
-          type={unifiedContactPointEmailDmo ? "text" : "password"}
+          type={showUnifiedContactPointEmailDmo ? "text" : "password"}
           placeholder="UnifiedssotContactPointEmailPat"
+          value={unifiedContactPointEmailDmo}
+          onChange={(e) => setUnifiedContactPointEmailDmo(e.target.value)}
         />
         <InputRightElement width="4.5rem">
           <Button
@@ -227,7 +301,7 @@ const ApiCredentials = () => {
             size="sm"
             onClick={handleUnifiedContactPointEmailDmo}
           >
-            {unifiedContactPointEmailDmo ? "Hide" : "Show"}
+            {showUnifiedContactPointEmailDmo ? "Hide" : "Show"}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -235,6 +309,33 @@ const ApiCredentials = () => {
         The API name of the Unified Contact Point Email DMO within your Data
         Cloud instance.
       </FormHelperText>
+
+      <Flex marginTop="20px" minWidth="max-content" alignItems="center" gap="4">
+        <Button
+          mt={4}
+          colorScheme="cyan"
+          type="submit"
+          onClick={
+            showAllValues
+              ? () => handleAllValues(false)
+              : () => handleAllValues(true)
+          }
+        >
+          {showAllValues ? "Hide all values" : "Show all values"}
+        </Button>
+        <Spacer />
+        <Button
+          mt={4}
+          colorScheme="gray"
+          type="submit"
+          onClick={handleCleanAllValues}
+        >
+          Clear all values
+        </Button>
+        <Button mt={4} colorScheme="teal" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Flex>
     </FormControl>
   );
 };
