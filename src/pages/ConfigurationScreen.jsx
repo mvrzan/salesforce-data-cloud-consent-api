@@ -1,14 +1,22 @@
-import { Heading } from "@chakra-ui/react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
-import { Flex } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import {
+  Tab,
+  Box,
+  Tabs,
+  Card,
+  Flex,
+  HStack,
+  Heading,
+  TabList,
+  TabPanel,
+  CardBody,
+  TabPanels,
+  CardHeader,
+  ChakraProvider,
+} from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
-import { HStack } from "@chakra-ui/react";
 
 import Processing from "../components/Processing";
+import Portability from "../components/Portability";
 import ShouldForget from "../components/ShouldForget";
 import ApiCredentials from "../components/ApiCredentials";
 
@@ -43,7 +51,7 @@ const ConfigurationScreen = () => {
                     <Processing />
                   </TabPanel>
                   <TabPanel>
-                    <p>four!</p>
+                    <Portability />
                   </TabPanel>
                 </TabPanels>
               </Tabs>
