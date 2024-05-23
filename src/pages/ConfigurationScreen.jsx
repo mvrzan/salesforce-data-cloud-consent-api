@@ -8,6 +8,8 @@ import { Box } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { HStack } from "@chakra-ui/react";
 
+import Processing from "../components/Processing";
+import ShouldForget from "../components/ShouldForget";
 import ApiCredentials from "../components/ApiCredentials";
 
 const ConfigurationScreen = () => {
@@ -35,10 +37,10 @@ const ConfigurationScreen = () => {
                     <ApiCredentials />
                   </TabPanel>
                   <TabPanel>
-                    <p>two!</p>
+                    <ShouldForget />
                   </TabPanel>
                   <TabPanel>
-                    <p>three!</p>
+                    <Processing />
                   </TabPanel>
                   <TabPanel>
                     <p>four!</p>
