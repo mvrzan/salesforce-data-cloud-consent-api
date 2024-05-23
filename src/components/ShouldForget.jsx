@@ -50,7 +50,7 @@ const ShouldForget = () => {
       </FormLabel>
       <InputGroup size="md">
         <Input
-          id="user-email-address"
+          id="user-email-address-should-forget"
           pr="4.5rem"
           type="email"
           placeholder="jdoe@example.com"

@@ -50,7 +50,7 @@ const Processing = () => {
       </FormLabel>
       <InputGroup size="md">
         <Input
-          id="user-email-address"
+          id="user-email-address-processing"
           pr="4.5rem"
           type="email"
           placeholder="jdoe@example.com"
