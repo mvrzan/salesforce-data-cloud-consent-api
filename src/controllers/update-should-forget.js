@@ -1,6 +1,6 @@
-import authToken from "../utils/auth-token.js";
-import getIndividualId from "../utils/get-individual-id.js";
-import patchShouldForget from "../utils/patch-should-forget.js";
+import authToken from "../utils/server/auth-token.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
+import patchShouldForget from "../utils/server/patch-should-forget.js";
 
 const updateShouldForget = async (request, reply) => {
   try {

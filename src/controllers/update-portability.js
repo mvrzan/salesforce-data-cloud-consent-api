@@ -1,5 +1,5 @@
-import authToken from "../utils/auth-token.js";
-import getIndividualId from "../utils/get-individual-id.js";
+import authToken from "../utils/server/auth-token.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
 import patchPortability from "../utils/server/patch-portability.js";
 
 const updatePortability = async (request, reply) => {

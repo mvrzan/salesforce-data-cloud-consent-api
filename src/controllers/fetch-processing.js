@@ -1,6 +1,6 @@
-import authToken from "../utils/auth-token.js";
-import getIndividualId from "../utils/get-individual-id.js";
-import getProcessingStatus from "../utils/get-processing-status.js";
+import authToken from "../utils/server/auth-token.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
+import getProcessingStatus from "../utils/server/get-processing-status.js";
 
 const fetchProcessing = async (request, reply) => {
   try {

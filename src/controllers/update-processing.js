@@ -1,6 +1,6 @@
-import authToken from "../utils/auth-token.js";
-import getIndividualId from "../utils/get-individual-id.js";
-import patchProcessing from "../utils/patch-processing.js";
+import authToken from "../utils/server/auth-token.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
+import patchProcessing from "../utils/server/patch-processing.js";
 
 const updateProcessing = async (request, reply) => {
   try {

@@ -1,6 +1,6 @@
-import authToken from "../utils/auth-token.js";
-import getShouldForgetStatus from "../utils/get-should-forget-status.js";
-import getIndividualId from "../utils/get-individual-id.js";
+import authToken from "../utils/server/auth-token.js";
+import getShouldForgetStatus from "../utils/server/get-should-forget-status.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
 
 const fetchShouldForget = async (request, reply) => {
   try {

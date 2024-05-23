@@ -1,5 +1,5 @@
-import authToken from "../utils/auth-token.js";
-import getIndividualId from "../utils/get-individual-id.js";
+import authToken from "../utils/server/auth-token.js";
+import getIndividualId from "../utils/server/get-individual-id.js";
 import getPortabilityStatus from "../utils/server/get-portability-status.js";
 
 const fetchPortability = async (request, reply) => {
