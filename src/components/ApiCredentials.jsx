@@ -9,9 +9,10 @@ import {
   FormLabel,
   FormControl,
   FormHelperText,
-  FormErrorMessage,
   InputRightElement,
 } from "@chakra-ui/react";
+
+import { updateApiSettings } from "../utils/client/update-api-settings";
 
 const ApiCredentials = () => {
   const [serviceUserEmail, setServiceUserEmail] = useState("");
@@ -45,17 +46,17 @@ const ApiCredentials = () => {
   const handleServiceUserPassword = () =>
     setShowServiceUserPassword(!showServiceUserPassword);
   const handleClientId = () => setShowClientId(!showClientId);
-  const handleClientSecret = () => setClientSecret(!clientSecret);
+  const handleClientSecret = () => setShowClientSecret(!showClientSecret);
   const handleServiceUserSecurityToken = () =>
-    setServiceUserSecurityToken(!serviceUserSecurityToken);
+    setShowServiceUserSecurityToken(!showServiceUserSecurityToken);
   const handleSalesforceInstanceUrl = () =>
-    setSalesforceInstanceUrl(!salesforceInstanceUrl);
+    setShowSalesforceInstanceUrl(!showSalesforceInstanceUrl);
   const handleSalesforceApiVersion = () =>
-    setSalesforceApiVersion(!salesforceApiVersion);
+    setShowSalesforceApiVersion(!showSalesforceApiVersion);
   const handleUnifiedIndividualDmoApi = () =>
-    setUnifiedIndividualDmoApi(!unifiedIndividualDmoApi);
+    setShowUnifiedIndividualDmoApi(!showUnifiedIndividualDmoApi);
   const handleUnifiedContactPointEmailDmo = () =>
-    setUnifiedContactPointEmailDmo(!unifiedContactPointEmailDmo);
+    setShowUnifiedContactPointEmailDmo(!showUnifiedContactPointEmailDmo);
 
   const handleAllValues = (showAll) => {
     setShowServiceUserEmail(showAll);
@@ -92,9 +93,22 @@ const ApiCredentials = () => {
     setShowAllValues(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+
+    const data = {
+      serviceUserEmail,
+      serviceUserPassword,
+      clientId,
+      clientSecret,
+      serviceUserSecurityToken,
+      salesforceInstanceUrl,
+      salesforceApiVersion,
+      unifiedIndividualDmoApi,
+      unifiedContactPointEmailDmo,
+    };
+
+    updateApiSettings(data);
   };
 
   return (
@@ -150,7 +164,7 @@ const ApiCredentials = () => {
           id="clientId"
           pr="4.5rem"
           type={showClientId ? "text" : "password"}
-          placeholder="client ID"
+          placeholder="Client ID"
           value={clientId}
           onChange={(e) => setClientId(e.target.value)}
         />
