@@ -14,6 +14,8 @@ export const patchPortability = async (email) => {
     );
 
     if (!response.ok) {
+      console.error(await response.json());
+
       throw new Error(
         `An error occurred: ${response.status} - ${response.statusText}
               The URL called was: ${response.url}`
