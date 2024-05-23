@@ -11,11 +11,11 @@ const patchPortability = async (token, userId) => {
       Authorization: `Bearer ${token}`,
     },
     data: {
-      aws_s3_bucket_id: "data-cloud-consent-data",
-      aws_access_key_id: "AKIA2UC27EEINQXJII62",
-      aws_secret_access_key: "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",
-      aws_s3_folder: "/",
-      aws_region: "us-east-2",
+      aws_s3_bucket_id: process.env.AWS_S3_BUCKET_ID,
+      aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+      aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+      aws_s3_folder: process.env.AWS_S3_FOLDER,
+      aws_region: process.env.AWS_REGION,
     },
   };
 
