@@ -1,5 +1,5 @@
-import updateSettings from "../controllers/update-settings.js";
 import updateUserDb from "../controllers/update-user-db.js";
+import updateSettings from "../controllers/update-settings.js";
 
 const settingsRoute = (fastify, _options, done) => {
   fastify.route({
