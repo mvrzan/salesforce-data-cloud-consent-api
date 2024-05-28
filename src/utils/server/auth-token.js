@@ -1,9 +1,9 @@
 import axios from "axios";
 import process from "process";
-import { getUserSettings } from "../../database/user-settings.js";
+import { readUserSettings } from "../../database/user-settings.js";
 
 const authToken = async () => {
-  const settings = await getUserSettings();
+  const settings = await readUserSettings();
 
   const username =
     settings.data[0].salesforce_service_username ||
