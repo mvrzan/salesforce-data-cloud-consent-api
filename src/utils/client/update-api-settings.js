@@ -1,7 +1,7 @@
 export const updateApiSettings = async (data) => {
   try {
     const response = await fetch(
-      `${window.location.origin}/api/v1/configuration`,
+      `${window.location.origin}/api/v1/configuration/update`,
       {
         method: "POST",
         headers: {
