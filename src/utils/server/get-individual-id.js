@@ -1,14 +1,30 @@
 import axios from "axios";
 import process from "process";
+import { readUserSettings } from "../../database/user-settings.js";
 
 const getIndividualId = async (token, email) => {
-  const url = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/ssot/queryv2`;
+  const settings = await readUserSettings();
+
+  const salesforceInstanceUrl =
+    settings.data[0].salesforce_instance_url ||
+    process.env.SALESFORCE_INSTANCE_URL;
+  const salesforceApiVersion =
+    settings.data[0].salesforce_api_version ||
+    process.env.SALESFORCE_API_VERSION;
+  const unifiedIndividualDmoApiName =
+    settings.data[0].unified_individual_dmo_api_name ||
+    process.env.UNIFIED_INDIVIDUAL_DMO_API_NAME;
+  const unifiedContactPointEmailDmoApiName =
+    settings.data[0].unified_contact_point_email_dmo_api_name ||
+    process.env.UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME;
+
+  const url = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/ssot/queryv2`;
   const query = JSON.stringify({
     sql: `SELECT Salesforce_Id__c 
-    FROM ${process.env.UNIFIED_INDIVIDUAL_DMO_API_NAME}__dlm 
+    FROM ${unifiedIndividualDmoApiName}__dlm 
     WHERE ssot__Id__c IN (
         SELECT ssot__Id__c 
-        FROM ${process.env.UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME}__dlm 
+        FROM ${unifiedContactPointEmailDmoApiName}__dlm 
         WHERE ssot__EmailAddress__c = '${email}')`,
   });
 

@@ -1,9 +1,19 @@
 import axios from "axios";
 import process from "process";
+import { readUserSettings } from "../../database/user-settings.js";
 
 const getProcessingStatus = async (token, userId) => {
-  const getUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp`;
-  const patchUrl = `${process.env.SALESFORCE_INSTANCE_URL}/services/data/${process.env.SALESFORCE_API_VERSION}/consent/action/processing?ids=${userId}&mode=cdp&status=optin`;
+  const settings = await readUserSettings();
+
+  const salesforceInstanceUrl =
+    settings.data[0].salesforce_instance_url ||
+    process.env.SALESFORCE_INSTANCE_URL;
+  const salesforceApiVersion =
+    settings.data[0].salesforce_api_version ||
+    process.env.SALESFORCE_API_VERSION;
+
+  const getUrl = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/consent/action/processing?ids=${userId}&mode=cdp`;
+  const patchUrl = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/consent/action/processing?ids=${userId}&mode=cdp&status=optin`;
 
   const getConfig = {
     method: "GET",
