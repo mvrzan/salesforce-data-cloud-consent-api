@@ -1,5 +1,5 @@
 import updateSettings from "../controllers/update-settings.js";
-import updateUserInfo from "../controllers/update-user-info.js";
+import updateUserDb from "../controllers/update-user-db.js";
 
 const settingsRoute = (fastify, _options, done) => {
   fastify.route({
@@ -11,7 +11,7 @@ const settingsRoute = (fastify, _options, done) => {
   fastify.route({
     method: "POST",
     url: "/configuration/update",
-    handler: updateUserInfo,
+    handler: updateUserDb,
   });
 
   done();
