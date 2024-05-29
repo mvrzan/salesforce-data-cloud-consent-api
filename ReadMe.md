@@ -16,6 +16,12 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
   - [Should Forget cannot be undone](#should-forget-cannot-be-undone)
+- [Configuration](#configuration)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+    - [Development](#development)
+    - [Deployment](#deployment)
+      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
   - [License](#license)
   - [Disclaimer](#disclaimer)
 
@@ -71,6 +77,93 @@ The solution for this is to make a `PATCH` request before `GET` and opt out by d
 ## Should Forget cannot be undone
 
 When you call the `shouhldforget` action and set the `status=optin`, you cannot change that value back to `optout`. Be careful when making opting in this action. Supporting documentation can be found [here](https://issues.salesforce.com/issue/a028c00000j5kYOAAY/cdp-consent-api-does-not-support-optout-statuses-for-shouldforget-action).
+
+# Configuration
+
+## Requirements
+
+To run this application locally and successfully interact with the Consent API for Data Cloud, you will need the following:
+
+- An active Salesforce account with Data Cloud provisioned
+- Node.js version 20 or later installed (type `node -v` in your terminal to check). Follow [instructions](https://nodejs.org/en/download) if you don't have node installed
+- npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
+- git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
+- A [Heroku account](https://signup.heroku.com/)
+- A Heroku [Postgres addon](https://elements.heroku.com/addons/heroku-postgresql)
+- An [AWS account](https://aws.amazon.com/), specifically an S3 bucket (this is only needed if you want to export the data, otherwise, you can skip this step and the `portability` action will not work for you)
+
+## Setup
+
+The first step is to clone the repository and install the project dependencies via a terminal interface by running the `npm install` in the proper folder:
+
+```
+cd salesforce-data-cloud-consent-api
+npm install
+```
+
+The second step is to create a `.env` file in the root of the project by copying `.env.example` file.
+
+```
+cp .env.example .env
+```
+
+Edit the newly created `.env` file and update the variables with your account specific information:
+
+```
+# Application settings
+PORT=
+
+# Salesforce credentials
+SERVICE_USER_USERNAME=
+SERVICE_USER_PASSWORD=
+CLIENT_ID=
+CLIENT_SECRET=
+SERVICE_USER_SECURITY_TOKEN=
+SALESFORCE_LOGIN_URL=
+SALESFORCE_INSTANCE_URL=
+SALESFORCE_API_VERSION=
+UNIFIED_INDIVIDUAL_DMO_API_NAME=
+UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME=
+
+# AWS credentials
+AWS_S3_BUCKET_ID=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_S3_FOLDER=
+AWS_REGION=
+
+#Database credentials
+DATABASE_USER=
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_NAME=
+```
+
+Once all of this is done, you are ready to run the application locally!
+
+### Development
+
+To run the application locally, use the command line, navigate to the folder, ensure the dependencies are installed properly, and run the following:
+
+```
+cd salesforce-data-cloud-consent-api
+npm run dev
+```
+
+This will automatically run the Fastify development server. Your app will run on `http://127.0.0.1:3000`.
+
+When you make changes to your code, the server will automatically restart to fetch new changes.
+
+### Deployment
+
+Once you are happy with your application, you can deploy it to Heroku!
+
+To deploy the application to Heroku, please follow the [official instructions](https://devcenter.heroku.com/articles/git).
+
+#### Can I deploy this anywhere else other than Heroku?
+
+Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee. Nothing in this project is specific to Heroku except for the [Procfile](/Procfile) which you can delete or ignore if you are using a different hosting provider.
 
 ## License
 
