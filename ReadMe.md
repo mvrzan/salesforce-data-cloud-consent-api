@@ -39,16 +39,16 @@ The main functionality of this project is to expose the [Salesforce Consent API 
 
 The web server offers the following endpoints:
 
-| Endpoint                | Method  | Description                                             |
-| ----------------------- | ------- | ------------------------------------------------------- |
-| `/processing/:id`       | `GET`   | Get the current processing status for a given email.    |
-| `/processing/:id`       | `PATCH` | Opt out of the processing for a given email.            |
-| `/portability/:id`      | `GET`   | Get the current portability status for a given email.   |
-| `/portability/:id`      | `PATCH` | Initiate data export for a given email.                 |
-| `/shouldForget/:id`     | `GET`   | Get the current should forget status for a given email. |
-| `/shouldForget/:id`     | `PATCH` | Initiate should forget action.                          |
-| `/ConfigurationScreen`  | `GET`   | Get the UI for API interactions from the server.        |
-| `/configuration/update` | `POST`  | Update database API settings.                           |
+| Endpoint                       | Method  | Description                                             |
+| ------------------------------ | ------- | ------------------------------------------------------- |
+| `/api/v1/processing/:id`       | `GET`   | Get the current processing status for a given email.    |
+| `/api/v1/processing/:id`       | `PATCH` | Opt out of the processing for a given email.            |
+| `/api/v1/portability/:id`      | `GET`   | Get the current portability status for a given email.   |
+| `/api/v1/portability/:id`      | `PATCH` | Initiate data export for a given email.                 |
+| `/api/v1/shouldForget/:id`     | `GET`   | Get the current should forget status for a given email. |
+| `/api/v1/shouldForget/:id`     | `PATCH` | Initiate should forget action.                          |
+| `/ConfigurationScreen`         | `GET`   | Get the UI for API interactions from the server.        |
+| `/api/v1/configuration/update` | `POST`  | Update database API settings.                           |
 
 Another functionality of this project is a user interface that gets server by the web server which provides a small React application to send requests to the above endpoints, see the JSON payload, and update API configurations.
 
@@ -151,7 +151,7 @@ cd salesforce-data-cloud-consent-api
 npm run dev
 ```
 
-This will automatically run the Fastify development server. Your app will run on `http://127.0.0.1:3000`.
+This will automatically run the Fastify development server. Your app will run on `http://127.0.0.1:3000`. The user interface will be available at `http://127.0.0.1:3000/ConfigurationScreen`.
 
 When you make changes to your code, the server will automatically restart to fetch new changes.
 
