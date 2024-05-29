@@ -15,6 +15,8 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
   - [Should Forget cannot be undone](#should-forget-cannot-be-undone)
+  - [License](#license)
+  - [Disclaimer](#disclaimer)
 
 ---
 
@@ -56,3 +58,11 @@ The solution for this is to make a `PATCH` request before `GET` and opt out by d
 ## Should Forget cannot be undone
 
 When you call the `shouhldforget` action and set the `status=optin`, you cannot change that value back to `optout`. Be careful when making opting in this action. Supporting documentation can be found [here](https://issues.salesforce.com/issue/a028c00000j5kYOAAY/cdp-consent-api-does-not-support-optout-statuses-for-shouldforget-action).
+
+## License
+
+[MIT](http://www.opensource.org/licenses/mit-license.html)
+
+## Disclaimer
+
+This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Salesforce bears no responsibility to support the use or implementation of this software.
