@@ -12,6 +12,11 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
+  - [User Interface Demo](#user-interface-demo)
+    - [API credentials](#api-credentials)
+    - [Should Forget](#should-forget)
+    - [Processing](#processing)
+    - [Portability](#portability)
   - [Technologies used](#technologies-used)
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
@@ -53,6 +58,26 @@ The web server offers the following endpoints:
 Another functionality of this project is a user interface that gets server by the web server which provides a small React application to send requests to the above endpoints, see the JSON payload, and update API configurations.
 
 ## How does it work?
+
+## User Interface Demo
+
+![](./screenshots/consent-api.gif)
+
+### API credentials
+
+![](./screenshots/api-credentials.png)
+
+### Should Forget
+
+![](./screenshots/should-forget.png)
+
+### Processing
+
+![](./screenshots/processing.png)
+
+### Portability
+
+![](./screenshots/portability.png)
 
 ## Technologies used
 
