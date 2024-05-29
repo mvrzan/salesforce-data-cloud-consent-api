@@ -12,6 +12,7 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
+  - [Technologies used](#technologies-used)
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
   - [Should Forget cannot be undone](#should-forget-cannot-be-undone)
@@ -46,6 +47,18 @@ The web server offers the following endpoints:
 Another functionality of this project is a user interface that gets server by the web server which provides a small React application to send requests to the above endpoints, see the JSON payload, and update API configurations.
 
 ## How does it work?
+
+## Technologies used
+
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Node.js](https://nodejs.org/en)
+- [Fastify](https://fastify.dev/)
+- [Fastify & Next.js](https://github.com/fastify/fastify-nextjs)
+- [React](https://react.dev/)
+- [Chakra](https://v2.chakra-ui.com/)
+- [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql)
+
+For a more detailed overview of the development & production dependencies, please check `package.json`.
 
 # Known Issues
 
