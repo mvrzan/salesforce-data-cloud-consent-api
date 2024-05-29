@@ -70,6 +70,27 @@ Another functionality of this project is a user interface that gets server by th
 
 ![](./screenshots/architecture-diagram.png)
 
+This application is built with JavaScript, Node.js, and the Fastify framework. It provides several endpoints (see above) that interact with the Salesforce Consent API specifically for Data Cloud.
+
+In addition to the API functionality, the project also provides a user interface that allows users to interact with the server. The user interface is built using React, Next, and Chakra UI. It allows users to send requests to the API endpoints, view the JSON payload, and update API configurations (see below for screenshots).
+
+Whenever you make a request to one of the actions supported by the Consent API (`processing`, `portability`, and `shouldforget`), you need to include a user email address.
+
+If you take a look at the above architecture diagram, this is the general request flow:
+
+- send a request and provide an email address
+- the server will check the Postgres database for `user_settings` table, but if no data exists, it will use the `.env` for API credentials
+- with these credentials, it will send a request to Salesforce, specifically the `https://login.salesforce.com/services/oauth2/token` URL to get the authorization token
+- once the token has been successfully retrieved, it will be used in the next request
+- the next request is going to the Data Cloud query API together with an [SQL query](./src/utils/server/get-individual-id.js)
+- this SQL query will search the Data Cloud Data Model Objects and find the individual ID based on the provided email address
+- once the individual ID has been successfully retrieved, the next step is to call the Consent API with the proper action (`processing`, `portability`, and `shouldforget`)
+- when checking the current status for a provided email address, a `GET` request is used
+- when updating a status, a `PATCH` request is used
+- one thing to point out is the `portability` action which exports the data to a custom S3 bucket
+- the credentials for this bucket are retrieved from the `.env` file and these credentials need to be passed in the `PATCH` request
+- once the request is passed off to Salesforce, the Salesforce system will export all the data pertaining to the email address from the Data Cloud Data Model Objects (DMOs) in a form o CSV files
+
 ## User Interface Demo
 
 ![](./screenshots/consent-api.gif)
