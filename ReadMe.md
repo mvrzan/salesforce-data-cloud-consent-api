@@ -21,6 +21,12 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
   - [Should Forget cannot be undone](#should-forget-cannot-be-undone)
+  - [API authentication](#api-authentication)
+- [Personal notes](#personal-notes)
+  - [Why did you chose Fastify?](#why-did-you-chose-fastify)
+  - [Why Heroku?](#why-heroku)
+  - [What's with Next and Fastify plugin?](#whats-with-next-and-fastify-plugin)
+  - [Wait, can't you just use Postman for this?](#wait-cant-you-just-use-postman-for-this)
 - [Configuration](#configuration)
   - [Requirements](#requirements)
   - [Setup](#setup)
@@ -102,6 +108,28 @@ The solution for this is to make a `PATCH` request before `GET` and opt out by d
 ## Should Forget cannot be undone
 
 When you call the `shouhldforget` action and set the `status=optin`, you cannot change that value back to `optout`. Be careful when making opting in this action. Supporting documentation can be found [here](https://issues.salesforce.com/issue/a028c00000j5kYOAAY/cdp-consent-api-does-not-support-optout-statuses-for-shouldforget-action).
+
+## API authentication
+
+NOTE: There is NO authentication built here. Meaning, if you deploy this as is, anyone can hit your API without any authorization present.
+
+# Personal notes
+
+## Why did you chose Fastify?
+
+I never used this framework, so this was a great opportunity for me to check it out.
+
+## Why Heroku?
+
+At the time of creating this project, I am a Salesforce employee. Since Salesforce owns Heroku, this was the "official" way of building a proof of concept.
+
+## What's with Next and Fastify plugin?
+
+Yeah... Not my brightest moment. I started building out the server with fastify and at the very end, there was a "need" to have a small UI. I saw the fastify and next.js plugin and decided to add it in. If I was doing the whole project again, I would not include a whole next library for this.
+
+## Wait, can't you just use Postman for this?
+
+Of course you can. The idea behind this project is to try something new. Don't forget, this is just a proof of concept, not a production level application.
 
 # Configuration
 
