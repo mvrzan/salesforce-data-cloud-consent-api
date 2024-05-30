@@ -9,14 +9,14 @@ import shouldForgetRoute from "./routes/should-forget-route.js";
 
 dotenv.config();
 const fastify = Fastify({ logger: true });
+fastify.register(nextJs).after(() => {
+  fastify.next("/ConfigurationScreen");
+});
 
 fastify.register(settingsRoute, { prefix: "/api/v1" });
 fastify.register(processingRoute, { prefix: "/api/v1" });
 fastify.register(shouldForgetRoute, { prefix: "/api/v1" });
 fastify.register(portabilityRoute, { prefix: "/api/v1" });
-fastify.register(nextJs).after(() => {
-  fastify.next("/ConfigurationScreen");
-});
 
 const start = () => {
   try {
