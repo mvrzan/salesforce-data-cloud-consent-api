@@ -20,7 +20,7 @@ fastify.register(nextJs).after(() => {
 
 const start = () => {
   try {
-    fastify.listen(process.env.PORT, "0.0.0.0");
+    fastify.listen({ port: process.env.PORT || 3000, host: "0.0.0.0" });
   } catch (error) {
     fastify.log.error(error);
     process.exit(1);
