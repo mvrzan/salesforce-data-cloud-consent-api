@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "next start && node src/app",
+    "start": "next build && next start && node src/app",
     "dev": "nodemon src/app"
   },
   "author": "",
