@@ -14,6 +14,14 @@ const shouldForget = (fastify, _options, done) => {
     handler: updateShouldForget,
   });
 
+  fastify.route({
+    method: "GET",
+    url: "/test",
+    handler: () => {
+      console.log("test");
+    },
+  });
+
   done();
 };
 
