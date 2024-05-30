@@ -6,17 +6,17 @@ const authToken = async () => {
   const settings = await readUserSettings();
 
   const username =
-    settings.data[0].salesforce_service_username ||
+    settings.data[0]?.salesforce_service_username ||
     process.env.SERVICE_USER_USERNAME;
   const password =
-    settings.data[0].salesforce_service_password ||
+    settings.data[0]?.salesforce_service_password ||
     process.env.SERVICE_USER_PASSWORD;
   const securityToken =
-    settings.data[0].salesforce_security_token ||
+    settings.data[0]?.salesforce_security_token ||
     process.env.SERVICE_USER_SECURITY_TOKEN;
-  const clientId = settings.data[0].client_id || process.env.CLIENT_ID;
+  const clientId = settings.data[0]?.client_id || process.env.CLIENT_ID;
   const clientSecret =
-    settings.data[0].client_secret || process.env.CLIENT_SECRET;
+    settings.data[0]?.client_secret || process.env.CLIENT_SECRET;
 
   const data = new URLSearchParams({
     grant_type: "password",

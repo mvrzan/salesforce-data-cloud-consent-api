@@ -6,16 +6,16 @@ const getIndividualId = async (token, email) => {
   const settings = await readUserSettings();
 
   const salesforceInstanceUrl =
-    settings.data[0].salesforce_instance_url ||
+    settings.data[0]?.salesforce_instance_url ||
     process.env.SALESFORCE_INSTANCE_URL;
   const salesforceApiVersion =
-    settings.data[0].salesforce_api_version ||
+    settings.data[0]?.salesforce_api_version ||
     process.env.SALESFORCE_API_VERSION;
   const unifiedIndividualDmoApiName =
-    settings.data[0].unified_individual_dmo_api_name ||
+    settings.data[0]?.unified_individual_dmo_api_name ||
     process.env.UNIFIED_INDIVIDUAL_DMO_API_NAME;
   const unifiedContactPointEmailDmoApiName =
-    settings.data[0].unified_contact_point_email_dmo_api_name ||
+    settings.data[0]?.unified_contact_point_email_dmo_api_name ||
     process.env.UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME;
 
   const url = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/ssot/queryv2`;

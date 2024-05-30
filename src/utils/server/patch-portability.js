@@ -6,10 +6,10 @@ const patchPortability = async (token, userId) => {
   const settings = await readUserSettings();
 
   const salesforceInstanceUrl =
-    settings.data[0].salesforce_instance_url ||
+    settings.data[0]?.salesforce_instance_url ||
     process.env.SALESFORCE_INSTANCE_URL;
   const salesforceApiVersion =
-    settings.data[0].salesforce_api_version ||
+    settings.data[0]?.salesforce_api_version ||
     process.env.SALESFORCE_API_VERSION;
 
   const url = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/consent/action/portability?ids=${userId}&mode=cdp&status=optin`;
