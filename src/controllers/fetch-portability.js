@@ -4,7 +4,7 @@ import getPortabilityStatus from "../utils/server/get-portability-status.js";
 
 const fetchPortability = async (request, reply) => {
   try {
-    const email = request.query.id;
+    const email = decodeURIComponent(request.query.id);
     const token = await authToken();
 
     if (token.status === 500) {

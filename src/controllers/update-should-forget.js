@@ -4,7 +4,7 @@ import patchShouldForget from "../utils/server/patch-should-forget.js";
 
 const updateShouldForget = async (request, reply) => {
   try {
-    const email = request.query.id;
+    const email = decodeURIComponent(request.query.id);
     const token = await authToken();
 
     if (token.status === 500) {

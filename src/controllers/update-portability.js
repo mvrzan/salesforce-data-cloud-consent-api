@@ -4,7 +4,7 @@ import patchPortability from "../utils/server/patch-portability.js";
 
 const updatePortability = async (request, reply) => {
   try {
-    const email = request.query.id;
+    const email = decodeURIComponent(request.query.id);
     const token = await authToken();
 
     if (token.status === 500) {

@@ -4,7 +4,7 @@ import getProcessingStatus from "../utils/server/get-processing-status.js";
 
 const fetchProcessing = async (request, reply) => {
   try {
-    const email = request.query.id;
+    const email = decodeURIComponent(request.query.id);
     const token = await authToken();
 
     if (token.status === 500) {
