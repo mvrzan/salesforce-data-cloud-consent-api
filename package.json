@@ -5,8 +5,9 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "next build && node src/app ",
-    "dev": "nodemon src/app"
+    "dev": "nodemon src/app",
+    "build": "next build",
+    "start": "node src/app "
   },
   "author": "",
   "license": "ISC",
