@@ -24,13 +24,7 @@ const start = () => {
       fastify.log.info(`Server listening on ${fastify.server.address().port}`);
 
       // console log all the available routes
-      // fastify.log.info(fastify.printRoutes());
       console.log(fastify.printRoutes());
-
-      // console log all the available routes one by one
-      fastify.route.forEach((route) => {
-        fastify.log.info(route);
-      });
     });
   } catch (error) {
     fastify.log.error(error);
