@@ -12,7 +12,7 @@ const fastify = Fastify({ logger: true });
 
 fastify.register(settingsRoute, { prefix: "/api/v1" });
 fastify.register(processingRoute, { prefix: "/api/v1" });
-fastify.register(shouldForgetRoute);
+fastify.register(shouldForgetRoute, { prefix: "/api/v1" });
 fastify.register(portabilityRoute, { prefix: "/api/v1" });
 // fastify.register(nextJs).after(() => {
 //   fastify.next("/ConfigurationScreen");
@@ -20,12 +20,17 @@ fastify.register(portabilityRoute, { prefix: "/api/v1" });
 
 const start = () => {
   try {
-    fastify.listen({ port: process.env.PORT || 3000, host: "0.0.0.0" }, () => {
-      fastify.log.info(`Server listening on ${fastify.server.address().port}`);
+    fastify.listen(
+      { port: process.env.PORT || 3000, host: "localhost" },
+      () => {
+        fastify.log.info(
+          `Server listening on ${fastify.server.address().port}`
+        );
 
-      // console log all the available routes
-      fastify.log.info(fastify.printRoutes());
-    });
+        // console log all the available routes
+        fastify.log.info(fastify.printRoutes());
+      }
+    );
   } catch (error) {
     fastify.log.error(error);
     process.exit(1);
