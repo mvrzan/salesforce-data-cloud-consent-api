@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/app",
-    "start": "node src/app "
+    "start": "next build && node src/app "
   },
   "author": "",
   "license": "ISC",
