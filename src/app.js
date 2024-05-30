@@ -12,7 +12,7 @@ const fastify = Fastify({ logger: true });
 
 fastify.register(settingsRoute, { prefix: "/api/v1" });
 fastify.register(processingRoute, { prefix: "/api/v1" });
-fastify.register(shouldForgetRoute, { prefix: "/api/v1" });
+fastify.register(shouldForgetRoute);
 fastify.register(portabilityRoute, { prefix: "/api/v1" });
 // fastify.register(nextJs).after(() => {
 //   fastify.next("/ConfigurationScreen");
