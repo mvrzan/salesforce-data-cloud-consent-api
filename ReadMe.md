@@ -219,6 +219,8 @@ DATABASE_PORT=
 DATABASE_NAME=
 ```
 
+NOTE: If you want to deploy this application to Heroku, you will have to create all of the above variables as Heroku environment variables. This can be done via the [command line or the Heroku Dashboard UI](https://devcenter.heroku.com/articles/config-vars).
+
 Once all of this is done, you are ready to run the application locally!
 
 ### Development
