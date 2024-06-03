@@ -186,7 +186,7 @@ The second step is to create a `.env` file in the root of the project by copying
 cp .env.example .env
 ```
 
-Edit the newly created `.env` file and update the variables with your account specific information:
+Edit the newly created `.env` file and update the variables with your account specific information. For details on creating a Salesforce token, please visit the [official documentation](https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5).
 
 ```
 # Application settings
@@ -244,7 +244,7 @@ To deploy the application to Heroku, please follow the [official instructions](h
 
 #### Can I deploy this anywhere else other than Heroku?
 
-Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee. Nothing in this project is specific to Heroku except for the [Procfile](/Procfile) which you can delete or ignore if you are using a different hosting provider.
+Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee.
 
 ## License
 
