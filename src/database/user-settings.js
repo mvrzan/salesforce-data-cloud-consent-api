@@ -31,9 +31,37 @@ export const createUserSettingsTable = async () => {
 };
 
 export const updateUserSettings = async (data) => {
+  console.log("Data to be inserted into users table", data);
   try {
-    const { rows } = await pool.query(
-      `UPDATE user_settings SET 
+    let { rows } = await pool.query(`SELECT * FROM user_settings WHERE id = 1`);
+    if (rows.length === 0) {
+      await pool.query(
+        `INSERT INTO user_settings (
+        salesforce_service_username,
+        salesforce_service_password,
+        client_id,
+        client_secret,
+        salesforce_security_token,
+        salesforce_instance_url,
+        salesforce_api_version,
+        unified_individual_dmo_api_name,
+        unified_contact_point_email_dmo_api_name
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [
+          data.serviceUserEmail,
+          data.serviceUserPassword,
+          data.clientId,
+          data.clientSecret,
+          data.serviceUserSecurityToken,
+          data.salesforceInstanceUrl,
+          data.salesforceApiVersion,
+          data.unifiedIndividualDmoApi,
+          data.unifiedContactPointEmailDmo,
+        ]
+      );
+    } else {
+      await pool.query(
+        `UPDATE user_settings SET 
       salesforce_service_username = $1,
       salesforce_service_password = $2,
       client_id = $3,
@@ -45,18 +73,19 @@ export const updateUserSettings = async (data) => {
       unified_contact_point_email_dmo_api_name = $9
       WHERE id = 1
       RETURNING *`,
-      [
-        data.serviceUserEmail,
-        data.serviceUserPassword,
-        data.clientId,
-        data.clientSecret,
-        data.serviceUserSecurityToken,
-        data.salesforceInstanceUrl,
-        data.salesforceApiVersion,
-        data.unifiedIndividualDmoApi,
-        data.unifiedContactPointEmailDmo,
-      ]
-    );
+        [
+          data.serviceUserEmail,
+          data.serviceUserPassword,
+          data.clientId,
+          data.clientSecret,
+          data.serviceUserSecurityToken,
+          data.salesforceInstanceUrl,
+          data.salesforceApiVersion,
+          data.unifiedIndividualDmoApi,
+          data.unifiedContactPointEmailDmo,
+        ]
+      );
+    }
 
     return {
       message: "Data inserted into users table",

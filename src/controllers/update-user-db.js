@@ -8,10 +8,10 @@ const updateUserDb = async (request, reply) => {
 
   try {
     // create a new table in the database if one does not exist
-    createUserSettingsTable();
+    await createUserSettingsTable();
 
     // insert data into the table
-    updateUserSettings(request.body);
+    await updateUserSettings(request.body);
 
     return reply.status(200).send({
       message: "User settings updated successfully!",
