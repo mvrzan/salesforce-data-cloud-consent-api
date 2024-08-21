@@ -89,7 +89,7 @@ If you take a look at the above architecture diagram, this is the general reques
 - when updating a status, a `PATCH` request is used
 - one thing to point out is the `portability` action which exports the data to a custom S3 bucket
 - the credentials for this bucket are retrieved from the `.env` file and these credentials need to be passed in the `PATCH` request
-- once the request is passed off to Salesforce, the Salesforce system will export all the data pertaining to the email address from the Data Cloud Data Model Objects (DMOs) in a form o CSV files
+- once the request is passed off to Salesforce, the Salesforce system will export all the data pertaining to the email address from the Data Cloud Data Model Objects (DMOs) in a form of CSV files
 
 ## User Interface Demo
 
