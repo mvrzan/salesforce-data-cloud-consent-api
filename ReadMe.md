@@ -1,14 +1,16 @@
-<a  href="https://www.salesforce.com/">
-<img  src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg"  alt="Salesforce"  width="250"  />
-</a>
+<p align="center">
+<a  href="https://www.salesforce.com"><img  src="./screenshots/salesforce_logo.svg"  alt="Agentforce"  width="150" height="150" hspace="50"/></a>
+<a href="https://www.salesforce.com/data/"><img  src="./screenshots/data_cloud_logo.png"  alt="lock_icon"  width="150" height="150" hspace="50"/></a>
+<a  href="https://www.heroku.com/"><img  src="./screenshots/heroku.webp"  alt="Heroku"  width="150" height="150" hspace="50"/></a>
+<p/>
 
-# Data Cloud and Consent API
+# Data 360 and Consent API
 
-This project is a simple node web server that is hosted on Heroku and it exposes the Salesforce Consent API for Data Cloud use cases. It also provides a small server side rendered user interface to update the API configuration.
+This project is a simple node web server that is hosted on Heroku and it exposes the Salesforce Consent API for Data 360 use cases. It also provides a small server side rendered user interface to update the API configuration.
 
 # Table of Contents
 
-- [Data Cloud and Consent API](#data-cloud-and-consent-api)
+- [Data 360 and Consent API](#data-360-and-consent-api)
 - [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
@@ -41,12 +43,12 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 
 ## What does it do?
 
-The main functionality of this project is to expose the [Salesforce Consent API for Data Cloud](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_consent_cdp_params.htm). The Consent API has 3 actions that offer different functionalities:
+The main functionality of this project is to expose the [Salesforce Consent API for Data 360](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_consent_cdp_params.htm). The Consent API has 3 actions that offer different functionalities:
 
 | Action       | Description                                                                                                                                 |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Processing   | This action is used to restrict processing of data in Data Cloud processes such as query and segmentation.                                  |
-| Portability  | This action is used to allow export of Data Cloud profile data.                                                                             |
+| Processing   | This action is used to restrict processing of data in Data 360 processes such as query and segmentation.                                    |
+| Portability  | This action is used to allow export of Data 360 profile data.                                                                               |
 | Shouldforget | This action indicates the right to be forgotten, which means delete PII (Personally Identifiable Information) data and any related records. |
 
 The web server offers the following endpoints:
@@ -70,7 +72,7 @@ Another functionality of this project is a user interface that gets server by th
 
 ![](./screenshots/architecture-diagram.png)
 
-This application is built with JavaScript, Node.js, and the Fastify framework. It provides several endpoints (see above) that interact with the Salesforce Consent API specifically for Data Cloud.
+This application is built with JavaScript, Node.js, and the Fastify framework. It provides several endpoints (see above) that interact with the Salesforce Consent API specifically for Data 360.
 
 In addition to the API functionality, the project also provides a user interface that allows users to interact with the server. The user interface is built using React, Next, and Chakra UI. It allows users to send requests to the API endpoints, view the JSON payload, and update API configurations (see below for screenshots).
 
@@ -82,14 +84,14 @@ If you take a look at the above architecture diagram, this is the general reques
 - the server will check the Postgres database for `user_settings` table, but if no data exists, it will use the `.env` for API credentials
 - with these credentials, it will send a request to Salesforce, specifically the `https://login.salesforce.com/services/oauth2/token` URL to get the authorization token
 - once the token has been successfully retrieved, it will be used in the next request
-- the next request is going to the Data Cloud query API together with an [SQL query](./src/utils/server/get-individual-id.js)
-- this SQL query will search the Data Cloud Data Model Objects and find the individual ID based on the provided email address
+- the next request is going to the Data 360 query API together with an [SQL query](./src/utils/server/get-individual-id.js)
+- this SQL query will search the Data 360 Data Model Objects and find the individual ID based on the provided email address
 - once the individual ID has been successfully retrieved, the next step is to call the Consent API with the proper action (`processing`, `portability`, and `shouldforget`)
 - when checking the current status for a provided email address, a `GET` request is used
 - when updating a status, a `PATCH` request is used
 - one thing to point out is the `portability` action which exports the data to a custom S3 bucket
 - the credentials for this bucket are retrieved from the `.env` file and these credentials need to be passed in the `PATCH` request
-- once the request is passed off to Salesforce, the Salesforce system will export all the data pertaining to the email address from the Data Cloud Data Model Objects (DMOs) in a form of CSV files
+- once the request is passed off to Salesforce, the Salesforce system will export all the data pertaining to the email address from the Data 360 Data Model Objects (DMOs) in a form of CSV files
 
 ## User Interface Demo
 
@@ -127,7 +129,7 @@ For a more detailed overview of the development & production dependencies, pleas
 
 ## Initial GET call
 
-If you look for a record within Data Cloud with the `GET` method and the record does not have a previous value configured for `shouldforget`, `processing`, or `portability`, the response will result in an error: `INVALID_ID_FIELD' as per [document](https://help.salesforce.com/s/articleView?id=000397169&type=1).
+If you look for a record within Data 360 with the `GET` method and the record does not have a previous value configured for `shouldforget`, `processing`, or `portability`, the response will result in an error: `INVALID_ID_FIELD' as per [document](https://help.salesforce.com/s/articleView?id=000397169&type=1).
 
 The solution for this is to make a `PATCH` request before `GET` and opt out by default. This is handled programmatically in this project and there is nothing for you to do.
 
@@ -161,9 +163,9 @@ Of course you can. The idea behind this project is to try something new. Don't f
 
 ## Requirements
 
-To run this application locally and successfully interact with the Consent API for Data Cloud, you will need the following:
+To run this application locally and successfully interact with the Consent API for Data 360, you will need the following:
 
-- An active Salesforce account with Data Cloud provisioned
+- An active Salesforce account with Data 360 provisioned
 - Node.js version 20 or later installed (type `node -v` in your terminal to check). Follow [instructions](https://nodejs.org/en/download) if you don't have node installed
 - npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
 - git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
