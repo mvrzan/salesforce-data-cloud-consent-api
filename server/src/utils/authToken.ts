@@ -10,9 +10,14 @@ let tokenCache: {
   expiresAt: null,
 };
 
-const sfAuthToken = async () => {
+interface sfAuthTokenResponse {
+  accessToken: string;
+  instanceUrl: string;
+}
+
+const sfAuthToken = async (): Promise<sfAuthTokenResponse> => {
   try {
-    if (tokenCache.accessToken && tokenCache.expiresAt && Date.now() < tokenCache.expiresAt) {
+    if (tokenCache.accessToken && tokenCache.instanceUrl && tokenCache.expiresAt && Date.now() < tokenCache.expiresAt) {
       console.log(
         `${getCurrentTimestamp()} ♻️ - sfAuthToken - Using cached access token (expires in ${Math.round(
           (tokenCache.expiresAt - Date.now()) / 1000
@@ -70,7 +75,7 @@ const sfAuthToken = async () => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`${getCurrentTimestamp()} ❌ - sfAuthToken - Error occurred: ${errorMessage}`);
-    return error;
+    throw error;
   }
 };
 
