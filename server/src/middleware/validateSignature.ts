@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import crypto from "crypto";
-import { getCurrentTimestamp } from "../utils/loggingUtil.js";
+import { getCurrentTimestamp } from "../utils/loggingUtil.ts";
 
 export function validateSignature(req: Request, res: Response, next: NextFunction) {
   console.log(`${getCurrentTimestamp()} 🕵️‍♀️ - middleware - Request received...`);
