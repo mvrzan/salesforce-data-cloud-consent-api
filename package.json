@@ -1,35 +1,7 @@
 {
-  "name": "data-cloud-consent-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/app.js",
-  "type": "module",
   "scripts": {
-    "dev": "nodemon src/app",
-    "start": "next build && node src/app "
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/react": "^2.8.2",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@fastify/nextjs": "^10.0.1",
-    "axios": "^1.6.8",
-    "dotenv": "^16.4.5",
-    "fastify": "^4.26.2",
-    "framer-motion": "^11.2.4",
-    "next": "^13.5.6",
-    "pg": "^8.11.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react18-json-view": "^0.2.8"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.2.0",
-    "eslint": "^9.2.0",
-    "globals": "^15.1.0",
-    "nodemon": "^3.1.0"
+    "start": "npm run build-client && npm run move-build && cd server && npm install && node index.js",
+    "build-client": "cd client && npm install --include=dev && npm run build",
+    "move-build": "rm -rf server/public && mv client/dist server/public"
   }
 }
