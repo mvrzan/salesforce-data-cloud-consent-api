@@ -48,8 +48,10 @@ const sfAuthToken = async (): Promise<sfAuthTokenResponse> => {
       body,
     };
 
-    const response = await fetch(`${process.env.SALESFORCE_LOGIN_URL}/services/oauth2/token`, config);
+    const response = await fetch(`${process.env.SALESFORCE_INSTANCE_URL}/services/oauth2/token`, config);
     const data = await response.json();
+
+    console.log(data);
 
     if (!response.ok) {
       throw new Error(`There was an error while getting the Salesforce Access Token: ${response.statusText}`);
