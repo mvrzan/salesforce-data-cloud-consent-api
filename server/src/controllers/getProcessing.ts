@@ -14,12 +14,12 @@ const getProcessing = async (req: Request, res: Response) => {
     const url = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/ssot/queryv2`;
 
     const query = JSON.stringify({
-      sql: `SELECT Salesforce_Id__c 
+      sql: `SELECT ssot__Id__c 
         FROM ${unifiedIndividualDmoApiName}__dlm 
         WHERE ssot__Id__c IN (
             SELECT ssot__Id__c 
             FROM ${unifiedContactPointEmailDmoApiName}__dlm 
-            WHERE ssot__EmailAddress__c = '${email}')`,
+            WHERE ssot__EmailAddress__c = '${email})`,
     });
 
     let queryConfig = {
@@ -28,7 +28,7 @@ const getProcessing = async (req: Request, res: Response) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      data: query,
+      body: query,
     };
 
     const queryResult = await fetch(url, queryConfig);
@@ -61,40 +61,42 @@ const getProcessing = async (req: Request, res: Response) => {
     };
 
     const getConsentApiResponse = await fetch(getUrl, getConfig);
-    const getConsentApiResponseData = await getConsentApiResponse.json();
 
     if (!getConsentApiResponse.ok) {
-      if (
-        getConsentApiResponseData.data.results?.result === "Failure" &&
-        getConsentApiResponseData.data.results?.errorMessage.includes("INVALID_ID_FIELD")
-      ) {
-        const patchConsentApiResponse = await fetch(patchUrl, patchConfig);
+      console.error(
+        `${getCurrentTimestamp()} ❌ - getProcessing - API Error: ${getConsentApiResponse.status} ${
+          getConsentApiResponse.statusText
+        }`
+      );
 
-        if (!patchConsentApiResponse.ok) {
-          console.error(
-            `${getCurrentTimestamp()} ❌ - getProcessing - API Error: ${getConsentApiResponse.status} ${
-              patchConsentApiResponse.statusText
-            }`
-          );
+      throw new Error(`There was an error while calling the Consent endpoint: ${getConsentApiResponse.statusText}`);
+    }
 
-          throw new Error(
-            `There was an error while calling the Consent endpoint: ${patchConsentApiResponse.statusText}`
-          );
-        }
+    const getConsentApiResponseData = await getConsentApiResponse.json();
+    const invalidIDField: boolean = getConsentApiResponseData.results?.errorMessage.includes("INVALID_ID_FIELD");
 
-        res.status(200).send({
-          message: "The request to the Consent API and processing action was successful.",
-          data: getConsentApiResponseData,
-        });
-      } else {
+    if (invalidIDField) {
+      console.log(`${getCurrentTimestamp()} ⛳️ - getProcessing - The consent flag has not been configured.`);
+
+      const patchConsentApiResponse = await fetch(patchUrl, patchConfig);
+
+      if (!patchConsentApiResponse.ok) {
         console.error(
-          `${getCurrentTimestamp()} ❌ - getProcessing - API Error: ${getConsentApiResponse.status} ${
-            getConsentApiResponse.statusText
+          `${getCurrentTimestamp()} ❌ - getProcessing - API Error: ${patchConsentApiResponse.status} ${
+            patchConsentApiResponse.statusText
           }`
         );
 
-        throw new Error(`There was an error while calling the Consent endpoint: ${getConsentApiResponse.statusText}`);
+        throw new Error(`There was an error while calling the Consent endpoint: ${patchConsentApiResponse.statusText}`);
       }
+
+      const getConsentApiResponse = await fetch(getUrl, getConfig);
+      const getConsentApiResponseData = await getConsentApiResponse.json();
+
+      res.status(200).send({
+        message: "The request to the Consent API and processing action was successful.",
+        data: getConsentApiResponseData,
+      });
     }
 
     res.status(200).send({
