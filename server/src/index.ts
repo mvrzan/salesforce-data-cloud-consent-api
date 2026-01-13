@@ -20,5 +20,5 @@ app.use(consentRoutes);
 app.use(express.static("public"));
 
 app.listen(port, () => {
-  console.log(`${getCurrentTimestamp()} - 🎬 index - Authentication server listening on port: ${port}`);
+  console.log(`${getCurrentTimestamp()} 🎬 - index - Authentication server listening on port: ${port}`);
 });
