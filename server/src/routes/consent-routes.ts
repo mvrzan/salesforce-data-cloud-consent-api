@@ -3,6 +3,7 @@ import { validateSignature } from "../middleware/validateSignature.ts";
 import getProcessing from "../controllers/getProcessing.ts";
 import patchProcessing from "../controllers/patchProcessing.ts";
 import getShouldForget from "../controllers/getShouldForget.ts";
+import patchShouldForget from "../controllers/patchShouldForget.ts";
 
 const consentRoutes = Router();
 
@@ -11,6 +12,6 @@ consentRoutes.patch("/api/v1/processing/:id", patchProcessing);
 consentRoutes.get("/api/v1/portability/:id", validateSignature, () => {});
 consentRoutes.patch("/api/v1/portability/:id", validateSignature, () => {});
 consentRoutes.get("/api/v1/shouldForget/:id", getShouldForget);
-consentRoutes.patch("/api/v1/shouldForget/:id", validateSignature, () => {});
+consentRoutes.patch("/api/v1/shouldForget/:id", patchShouldForget);
 
 export default consentRoutes;
