@@ -70,13 +70,15 @@ const patchProcessing = async (req: Request, res: Response) => {
       throw new Error(`There was an error while calling the Consent endpoint: ${patchConsentApiResponse.statusText}`);
     }
 
+    const patchConsentApiResponseData = await patchConsentApiResponse.json();
+
     console.log(
       `${getCurrentTimestamp()} ✅ - patchProcessing - The request to the Consent API and Processing action was successful!`
     );
 
     res.status(200).send({
       message: "The request to the Consent API and processing action was successful.",
-      data: patchConsentApiResponse,
+      data: patchConsentApiResponseData,
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
