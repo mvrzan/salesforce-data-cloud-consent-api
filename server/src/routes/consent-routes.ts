@@ -9,11 +9,11 @@ import patchPortability from "../controllers/patchPortability.ts";
 
 const consentRoutes = Router();
 
-consentRoutes.get("/api/v1/processing/:id", getProcessing);
-consentRoutes.patch("/api/v1/processing/:id", patchProcessing);
-consentRoutes.get("/api/v1/portability/:id", getPortability);
+consentRoutes.get("/api/v1/processing/:id", validateSignature, getProcessing);
+consentRoutes.patch("/api/v1/processing/:id", validateSignature, patchProcessing);
+consentRoutes.get("/api/v1/portability/:id", validateSignature, getPortability);
 consentRoutes.patch("/api/v1/portability/:id", validateSignature, patchPortability);
-consentRoutes.get("/api/v1/shouldForget/:id", getShouldForget);
-consentRoutes.patch("/api/v1/shouldForget/:id", patchShouldForget);
+consentRoutes.get("/api/v1/shouldForget/:id", validateSignature, getShouldForget);
+consentRoutes.patch("/api/v1/shouldForget/:id", validateSignature, patchShouldForget);
 
 export default consentRoutes;
