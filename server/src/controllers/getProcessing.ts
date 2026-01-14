@@ -4,7 +4,9 @@ import { getCurrentTimestamp } from "../utils/loggingUtil.ts";
 
 const getProcessing = async (req: Request, res: Response) => {
   try {
-    const { email } = req.params;
+    console.log(`${getCurrentTimestamp()} 📥 - getProcessing - GET request received for the Processing endpoint!`);
+
+    const email = req.query.email;
     const { accessToken } = await sfAuthToken();
 
     const salesforceInstanceUrl = process.env.SALESFORCE_INSTANCE_URL;
@@ -15,11 +17,11 @@ const getProcessing = async (req: Request, res: Response) => {
 
     const query = JSON.stringify({
       sql: `SELECT ssot__Id__c 
-        FROM ${unifiedIndividualDmoApiName}__dlm 
-        WHERE ssot__Id__c IN (
-            SELECT ssot__Id__c 
-            FROM ${unifiedContactPointEmailDmoApiName}__dlm 
-            WHERE ssot__EmailAddress__c = '${email})`,
+      FROM ${unifiedIndividualDmoApiName}__dlm 
+      WHERE ssot__Id__c IN (
+        SELECT ssot__Id__c 
+        FROM ${unifiedContactPointEmailDmoApiName}__dlm 
+        WHERE ssot__EmailAddress__c = '${email}')`,
     });
 
     let queryConfig = {
@@ -41,6 +43,8 @@ const getProcessing = async (req: Request, res: Response) => {
       throw new Error(`There was an error while calling the query endpoint: ${queryResult.statusText}`);
     }
 
+    console.log(`${getCurrentTimestamp()} 💳 - getProcessing - Individual ID retrieved`);
+
     const queryResultData = await queryResult.json();
     const individualId = queryResultData.data;
     const getUrl = `${salesforceInstanceUrl}/services/data/${salesforceApiVersion}/consent/action/processing?ids=${individualId}&mode=cdp`;
@@ -61,6 +65,8 @@ const getProcessing = async (req: Request, res: Response) => {
     };
 
     const getConsentApiResponse = await fetch(getUrl, getConfig);
+
+    console.log(`${getCurrentTimestamp()} 🔏 - getProcessing - Calling the Consent API`);
 
     if (!getConsentApiResponse.ok) {
       console.error(
@@ -93,11 +99,19 @@ const getProcessing = async (req: Request, res: Response) => {
       const getConsentApiResponse = await fetch(getUrl, getConfig);
       const getConsentApiResponseData = await getConsentApiResponse.json();
 
+      console.log(
+        `${getCurrentTimestamp()} ✅ - getProcessing - The request to the Consent API and Processing action was successful!`
+      );
+
       res.status(200).send({
         message: "The request to the Consent API and processing action was successful.",
         data: getConsentApiResponseData,
       });
     }
+
+    console.log(
+      `${getCurrentTimestamp()} ✅ - getProcessing - The request to the Consent API and Processing action was successful!`
+    );
 
     res.status(200).send({
       message: "The request to the Consent API and processing action was successful.",
