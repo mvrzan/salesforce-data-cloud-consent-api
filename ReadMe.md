@@ -126,49 +126,106 @@ To run this application locally and successfully interact with the Consent API f
 - Node.js version 20 or later installed (type `node -v` in your terminal to check). Follow [instructions](https://nodejs.org/en/download) if you don't have node installed
 - npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
 - git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
-- A [Heroku account](https://signup.heroku.com/)
+- A [Heroku account](https://signup.heroku.com/) (only for deployment)
 - An [AWS account](https://aws.amazon.com/), specifically an S3 bucket (this is only needed if you want to export the data, otherwise, you can skip this step and the `portability` action will not work for you)
+- - A [Salesforce](https://www.salesforce.com) account enabled with Data 360 and mapped users
 
 ## Setup
 
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/mvrzan/salesforce-data-cloud-consent-api
+   cd salesforce-data-cloud-consent-api
+   ```
+
+2. **Configure Server Environment Variables**
+
+   Copy the example file and fill in your Salesforce credentials:
+
+   ```bash
+   cd server
+   cp .env.example .env
+   ```
+
+   Edit `server/.env` with your values:
+
+   ````
+   # Application settings
+   PORT=
+
+   # API Security
+   API_SECRET=
+
+   # Salesforce credentials
+   CLIENT_ID=
+   CLIENT_SECRET=
+   SALESFORCE_INSTANCE_URL=
+   SALESFORCE_API_VERSION=
+   UNIFIED_INDIVIDUAL_DMO_API_NAME=
+   UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME=
+
+   # AWS credentials
+   AWS_S3_BUCKET_ID=
+   AWS_ACCESS_KEY_ID=
+   AWS_SECRET_ACCESS_KEY=
+   AWS_S3_FOLDER=
+   AWS_REGION=
+   ```
+
+   ````
+
+3. **Configure Client Environment Variables**
+
+   ```bash
+   cd ../client
+   cp .env.example .env
+   ```
+
+Edit `client/.env` with the **same** API secret and local API URL:
+
+```bash
+VITE_API_URL=http://localhost:3000
+VITE_API_SECRET=your_generated_secret_key
+```
+
+⚠️ **Important**: The `API_SECRET` on the server must match `VITE_API_SECRET` on the client.
+
+4. **Install Dependencies**
+
+   Install server dependencies:
+
+   ```bash
+   cd server
+   npm install
+   ```
+
+   Install client dependencies:
+
+   ```bash
+   cd ../client
+   npm install
+   ```
+
+5. **Start the Application**
+
+   Start the server (from the `server` directory):
+
+   ```bash
+   npm run dev
+   ```
+
+   In a new terminal, start the client (from the `client` directory):
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Access the Application**
+
+   Open your browser and navigate to `http://localhost:5173`
+
 The first step is to clone the repository and install the project dependencies via a terminal interface by running the `npm install` in the proper folder:
-
-```
-cd salesforce-data-cloud-consent-api
-npm install
-```
-
-The second step is to create a `.env` file in the root of the project by copying `.env.example` file.
-
-```
-cp .env.example .env
-```
-
-Edit the newly created `.env` file and update the variables with your account specific information. For details on creating a Salesforce token, please visit the [official documentation](https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5).
-
-```
-# Application settings
-PORT=
-
-# Salesforce credentials
-SERVICE_USER_USERNAME=
-SERVICE_USER_PASSWORD=
-CLIENT_ID=
-CLIENT_SECRET=
-SERVICE_USER_SECURITY_TOKEN=
-SALESFORCE_LOGIN_URL=
-SALESFORCE_INSTANCE_URL=
-SALESFORCE_API_VERSION=
-UNIFIED_INDIVIDUAL_DMO_API_NAME=
-UNIFIED_CONTACT_POINT_EMAIL_DMO_API_NAME=
-
-# AWS credentials
-AWS_S3_BUCKET_ID=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_S3_FOLDER=
-AWS_REGION=
-```
 
 NOTE: If you want to deploy this application to Heroku, you will have to create all of the above variables as Heroku environment variables. This can be done via the [command line or the Heroku Dashboard UI](https://devcenter.heroku.com/articles/config-vars).
 
@@ -200,3 +257,7 @@ To deploy the application to Heroku, please follow the [official instructions](h
 ## Disclaimer
 
 This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Salesforce bears no responsibility to support the use or implementation of this software.
+
+```
+
+```
