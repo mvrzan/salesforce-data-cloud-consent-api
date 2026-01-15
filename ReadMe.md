@@ -6,7 +6,7 @@
 
 # Data 360 and Consent API
 
-This project is a simple node web server that is hosted on Heroku and it exposes the Salesforce Consent API for Data 360 use cases. It also provides a small server side rendered user interface to update the API configuration.
+This project is a simple node web server that is hosted on Heroku and it exposes the Salesforce Consent API for Data 360 use cases. It also provides a website for user interactions.
 
 # Table of Contents
 
@@ -16,10 +16,6 @@ This project is a simple node web server that is hosted on Heroku and it exposes
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
   - [User Interface Demo](#user-interface-demo)
-    - [API credentials](#api-credentials)
-    - [Should Forget](#should-forget)
-    - [Processing](#processing)
-    - [Portability](#portability)
   - [Technologies used](#technologies-used)
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
@@ -53,18 +49,16 @@ The main functionality of this project is to expose the [Salesforce Consent API 
 
 The web server offers the following endpoints:
 
-| Endpoint                       | Method  | Description                                             |
-| ------------------------------ | ------- | ------------------------------------------------------- |
-| `/api/v1/processing/:id`       | `GET`   | Get the current processing status for a given email.    |
-| `/api/v1/processing/:id`       | `PATCH` | Opt out of the processing for a given email.            |
-| `/api/v1/portability/:id`      | `GET`   | Get the current portability status for a given email.   |
-| `/api/v1/portability/:id`      | `PATCH` | Initiate data export for a given email.                 |
-| `/api/v1/shouldForget/:id`     | `GET`   | Get the current should forget status for a given email. |
-| `/api/v1/shouldForget/:id`     | `PATCH` | Initiate should forget action.                          |
-| `/ConfigurationScreen`         | `GET`   | Get the UI for API interactions from the server.        |
-| `/api/v1/configuration/update` | `POST`  | Update database API settings.                           |
+| Endpoint                   | Method  | Description                                             |
+| -------------------------- | ------- | ------------------------------------------------------- |
+| `/api/v1/processing/:id`   | `GET`   | Get the current processing status for a given email.    |
+| `/api/v1/processing/:id`   | `PATCH` | Opt out of the processing for a given email.            |
+| `/api/v1/portability/:id`  | `GET`   | Get the current portability status for a given email.   |
+| `/api/v1/portability/:id`  | `PATCH` | Initiate data export for a given email.                 |
+| `/api/v1/shouldForget/:id` | `GET`   | Get the current should forget status for a given email. |
+| `/api/v1/shouldForget/:id` | `PATCH` | Initiate should forget action.                          |
 
-Another functionality of this project is a user interface that gets server by the web server which provides a small React application to send requests to the above endpoints, see the JSON payload, and update API configurations.
+Another functionality of this project is a user interface that enables user interactions with the Consent API.
 
 ## How does it work?
 
@@ -72,21 +66,21 @@ Another functionality of this project is a user interface that gets server by th
 
 ![](./screenshots/architecture-diagram.png)
 
-This application is built with JavaScript, Node.js, and the Fastify framework. It provides several endpoints (see above) that interact with the Salesforce Consent API specifically for Data 360.
+This application is built with Typescript, Node.js, and the Express framework. It provides several endpoints (see above) that interact with the Salesforce Consent API specifically for Data 360.
 
-In addition to the API functionality, the project also provides a user interface that allows users to interact with the server. The user interface is built using React, Next, and Chakra UI. It allows users to send requests to the API endpoints, view the JSON payload, and update API configurations (see below for screenshots).
+In addition to the API functionality, the project also provides a user interface that allows users to interact with the server. The user interface is built using React, Vite, and Chakra UI. It allows users to send requests to the API endpoints and view the JSON payload.
 
 Whenever you make a request to one of the actions supported by the Consent API (`processing`, `portability`, and `shouldforget`), you need to include a user email address.
 
 If you take a look at the above architecture diagram, this is the general request flow:
 
 - send a request and provide an email address
-- the server will check the Postgres database for `user_settings` table, but if no data exists, it will use the `.env` for API credentials
+- the server will check the `.env` for API credentials
 - with these credentials, it will send a request to Salesforce, specifically the `https://login.salesforce.com/services/oauth2/token` URL to get the authorization token
 - once the token has been successfully retrieved, it will be used in the next request
-- the next request is going to the Data 360 query API together with an [SQL query](./src/utils/server/get-individual-id.js)
-- this SQL query will search the Data 360 Data Model Objects and find the individual ID based on the provided email address
-- once the individual ID has been successfully retrieved, the next step is to call the Consent API with the proper action (`processing`, `portability`, and `shouldforget`)
+- the next request is going to the Data 360 query API
+- this SQL query will search the Data 360 Data Model Objects and find the Individual ID based on the provided email address
+- once the Individual ID has been successfully retrieved, the next step is to call the Consent API with the proper action (`processing`, `portability`, and `shouldforget`)
 - when checking the current status for a provided email address, a `GET` request is used
 - when updating a status, a `PATCH` request is used
 - one thing to point out is the `portability` action which exports the data to a custom S3 bucket
@@ -95,23 +89,7 @@ If you take a look at the above architecture diagram, this is the general reques
 
 ## User Interface Demo
 
-![](./screenshots/consent-api.gif)
-
-### API credentials
-
-![](./screenshots/api-credentials.png)
-
-### Should Forget
-
-![](./screenshots/should-forget.png)
-
-### Processing
-
-![](./screenshots/processing.png)
-
-### Portability
-
-![](./screenshots/portability.png)
+![](./screenshots/demo.png)
 
 ## Technologies used
 
