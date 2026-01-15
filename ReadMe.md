@@ -20,18 +20,11 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Known Issues](#known-issues)
   - [Initial GET call](#initial-get-call)
   - [Should Forget cannot be undone](#should-forget-cannot-be-undone)
-  - [API authentication](#api-authentication)
-- [Personal notes](#personal-notes)
-  - [Why did you chose Fastify?](#why-did-you-chose-fastify)
-  - [Why Heroku?](#why-heroku)
-  - [What's with Next and Fastify plugin?](#whats-with-next-and-fastify-plugin)
-  - [Wait, can't you just use Postman for this?](#wait-cant-you-just-use-postman-for-this)
 - [Configuration](#configuration)
   - [Requirements](#requirements)
   - [Setup](#setup)
     - [Development](#development)
     - [Deployment](#deployment)
-      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
   - [License](#license)
   - [Disclaimer](#disclaimer)
 
@@ -93,13 +86,21 @@ If you take a look at the above architecture diagram, this is the general reques
 
 ## Technologies used
 
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [Node.js](https://nodejs.org/en)
-- [Fastify](https://fastify.dev/)
-- [Fastify & Next.js](https://github.com/fastify/fastify-nextjs)
-- [React](https://react.dev/)
-- [Chakra](https://v2.chakra-ui.com/)
-- [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql)
+**Client**
+
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [React](https://react.dev/) - UI framework
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Vite](https://vitejs.dev/) - Build tool and dev server
+- [Chakra](https://v2.chakra-ui.com/) - Component library
+
+**Server**
+
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Node.js](https://nodejs.org/en) - JavaScript runtime
+- [Express](https://expressjs.com/) - Web framework
+- [OAuth 2.0 Client Credentials Flow ](https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_client_credentials_flow.htm&type=5)- Salesforce authentication
+- [Heroku](https://www.heroku.com/) - Hosting backend
 
 For a more detailed overview of the development & production dependencies, please check `package.json`.
 
@@ -115,28 +116,6 @@ The solution for this is to make a `PATCH` request before `GET` and opt out by d
 
 When you call the `shouhldforget` action and set the `status=optin`, you cannot change that value back to `optout`. Be careful when making opting in this action. Supporting documentation can be found [here](https://issues.salesforce.com/issue/a028c00000j5kYOAAY/cdp-consent-api-does-not-support-optout-statuses-for-shouldforget-action).
 
-## API authentication
-
-NOTE: There is NO authentication built here. Meaning, if you deploy this as is, anyone can hit your API without any authorization present.
-
-# Personal notes
-
-## Why did you chose Fastify?
-
-I never used this framework, so this was a great opportunity for me to check it out.
-
-## Why Heroku?
-
-At the time of creating this project, I am a Salesforce employee. Since Salesforce owns Heroku, this was the "official" way of building a proof of concept.
-
-## What's with Next and Fastify plugin?
-
-Yeah... Not my brightest moment. I started building out the server with fastify and at the very end, there was a "need" to have a small UI. I saw the fastify and next.js plugin and decided to add it in. If I was doing the whole project again, I would not include a whole next library for this.
-
-## Wait, can't you just use Postman for this?
-
-Of course you can. The idea behind this project is to try something new. Don't forget, this is just a proof of concept, not a production level application.
-
 # Configuration
 
 ## Requirements
@@ -148,7 +127,6 @@ To run this application locally and successfully interact with the Consent API f
 - npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
 - git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
 - A [Heroku account](https://signup.heroku.com/)
-- A Heroku [Postgres addon](https://elements.heroku.com/addons/heroku-postgresql)
 - An [AWS account](https://aws.amazon.com/), specifically an S3 bucket (this is only needed if you want to export the data, otherwise, you can skip this step and the `portability` action will not work for you)
 
 ## Setup
@@ -190,13 +168,6 @@ AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_S3_FOLDER=
 AWS_REGION=
-
-#Database credentials
-DATABASE_USER=
-DATABASE_PASSWORD=
-DATABASE_HOST=
-DATABASE_PORT=
-DATABASE_NAME=
 ```
 
 NOTE: If you want to deploy this application to Heroku, you will have to create all of the above variables as Heroku environment variables. This can be done via the [command line or the Heroku Dashboard UI](https://devcenter.heroku.com/articles/config-vars).
@@ -221,10 +192,6 @@ When you make changes to your code, the server will automatically restart to fet
 Once you are happy with your application, you can deploy it to Heroku!
 
 To deploy the application to Heroku, please follow the [official instructions](https://devcenter.heroku.com/articles/git).
-
-#### Can I deploy this anywhere else other than Heroku?
-
-Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee.
 
 ## License
 
