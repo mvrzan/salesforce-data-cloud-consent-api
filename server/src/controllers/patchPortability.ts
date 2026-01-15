@@ -54,9 +54,19 @@ const patchPortability = async (req: Request, res: Response) => {
     const patchConfig = {
       method: "PATCH",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
+      body: JSON.stringify({
+        aws_s3_bucket_id: process.env.AWS_S3_BUCKET_ID,
+        aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+        aws_s3_folder: process.env.AWS_S3_FOLDER,
+        aws_region: process.env.AWS_REGION,
+      }),
     };
+
+    console.log(patchConfig);
 
     console.log(`${getCurrentTimestamp()} 🔏 - patchPortability - Calling the Consent API`);
 
