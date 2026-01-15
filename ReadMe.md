@@ -23,7 +23,6 @@ This project is a simple node web server that is hosted on Heroku and it exposes
 - [Configuration](#configuration)
   - [Requirements](#requirements)
   - [Setup](#setup)
-    - [Development](#development)
     - [Deployment](#deployment)
   - [License](#license)
   - [Disclaimer](#disclaimer)
@@ -231,19 +230,6 @@ NOTE: If you want to deploy this application to Heroku, you will have to create 
 
 Once all of this is done, you are ready to run the application locally!
 
-### Development
-
-To run the application locally, use the command line, navigate to the folder, ensure the dependencies are installed properly, and run the following:
-
-```
-cd salesforce-data-cloud-consent-api
-npm run dev
-```
-
-This will automatically run the Fastify development server. Your app will run on `http://127.0.0.1:3000`. The user interface will be available at `http://127.0.0.1:3000/ConfigurationScreen`.
-
-When you make changes to your code, the server will automatically restart to fetch new changes.
-
 ### Deployment
 
 Once you are happy with your application, you can deploy it to Heroku!
@@ -257,7 +243,3 @@ To deploy the application to Heroku, please follow the [official instructions](h
 ## Disclaimer
 
 This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Salesforce bears no responsibility to support the use or implementation of this software.
-
-```
-
-```
