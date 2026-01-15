@@ -66,8 +66,6 @@ const patchPortability = async (req: Request, res: Response) => {
       }),
     };
 
-    console.log(patchConfig);
-
     console.log(`${getCurrentTimestamp()} 🔏 - patchPortability - Calling the Consent API`);
 
     const patchConsentApiResponse = await fetch(patchUrl, patchConfig);
