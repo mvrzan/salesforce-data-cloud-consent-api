@@ -1,0 +1,29 @@
+{
+  "name": "salesforce-data-cloud-consent-api",
+  "version": "2.0.0",
+  "description": "This project is a simple node web server that is hosted on Heroku and it exposes the Salesforce Consent API for Data 360 use cases. ",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=./src/.env --watch src/index.ts",
+    "start": "node src/index.ts"
+  },
+  "keywords": [
+    "salesforce",
+    "data cloud",
+    "data360",
+    "heroku",
+    "gdpr"
+  ],
+  "author": "Matija Vrzan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6"
+  }
+}
